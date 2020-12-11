@@ -68,7 +68,7 @@ export const resolvers = {
               status: "WAITING"
             }
             console.log("Send to queue")
-            context.connections.flow.sendToQueue(`file-converter`, conversionStatus)
+            context.connections.flow.addToQueue(`file-converter`, conversionStatus)
             return conversionStatus
           }
 
