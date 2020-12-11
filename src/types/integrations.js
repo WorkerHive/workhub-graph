@@ -11,6 +11,16 @@ extend type Query {
   connectionLayout(storeId: ID): [StoreBucket]
   bucketLayout(storeId: ID, bucketId: ID): [StoreBit]
   adminTypes: [UserType]
+
+  typePermissions: [FlowInfo]
+}
+
+type FlowInfo {
+  type: String
+  create: Boolean
+  read: Boolean
+  update: Boolean
+  delete: Boolean
 }
 
 extend type Mutation {
@@ -152,6 +162,9 @@ export const resolvers =  {
     }
   },
   Query: {
+    typePermissions: async (parent, args, context) => {
+        return context.connections.flow.typePermissions()
+    },
     backlinks: async (parent, args, context) => {
         let links = await context.connections.app.request('backlinks', {}).toArray()
         return links;
@@ -184,6 +197,7 @@ export const resolvers =  {
   },
   Mutation: {
     updateIntegrationMap: async (parent, {nodes, links}, context) => {
+        await context.connections.flow.updateIntegrations(nodes, links)
         return await context.connections.app.update('integration-map', {id: 'integration-map'}, {$set: {nodes, links}}, {upsert: true})
     },
     addBackLink: async (parent, args, context) => {

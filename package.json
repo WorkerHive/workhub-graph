@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.6.0",
     "apollo-server": "^2.19.0",
     "file-extension": "^4.0.5",
     "fs-capacitor": "^6.2.0",

@@ -12,11 +12,14 @@ import FlowProvider from './lib/flow-provider/index.js';
 
 import FileStore from './lib/file-store/index.js';
 
+import MessageQueue from './lib/message-queue/index.js';
+
 const MongoStore = await MongoStoreFactory({url: process.env.MONGO_URL || 'mongodb://localhost', dbName: process.env.MONGO_DB || 'workhub'})
 const MongoAdapter = MongoAdapterFactory(MongoStore)
 
 const fileStore = await FileStore()
-const flowProvider = await FlowProvider(UserTypes, MongoAdapter);
+const messageQueue = await MessageQueue({url: process.env.MQ_URL || 'amqp://localhost'})
+const flowProvider = await FlowProvider(UserTypes, MongoAdapter, MongoStore, messageQueue);
 
 const server = new ApolloServer({
   typeDefs,

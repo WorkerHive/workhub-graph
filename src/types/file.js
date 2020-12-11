@@ -1,5 +1,6 @@
 import fs from 'fs';
 import fileExtension from 'file-extension';
+import mongodb from 'mongodb';
 
 export const typeDef = `
 
@@ -10,6 +11,13 @@ export const typeDef = `
 
   extend type Mutation {
     uploadFile(file: Upload!): File
+    convertFile(fileId: ID, targetFormat: String): ConversionStatus
+  }
+  
+  type ConversionStatus {
+    file: File
+    target: String
+    status: String
   }
 
   type File {
@@ -46,6 +54,19 @@ export const resolvers = {
             }
             await context.connections.app.add('files', newFile)
           })
+        },
+        convertFile: async (parent, {fileId, targetFormat}, context) => {
+          let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
+          if(files && files.length > 0){
+            let conversionStatus = {
+              file: files[0],
+              target: targetFormat,
+              status: "WAITING"
+            }
+            context.connections.flow.sendToQueue(`file-converter`, conversionStatus)
+            return conversionStatus
+          }
+
         }
     }
 }
