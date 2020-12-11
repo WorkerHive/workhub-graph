@@ -12,13 +12,20 @@
   "dependencies": {
     "apollo-server": "^2.19.0",
     "file-extension": "^4.0.5",
+    "fs-capacitor": "^6.2.0",
     "graphql": "^15.4.0",
     "graphql-type-json": "^0.3.2",
+    "graphql-upload": "^11.0.0",
+    "ipfs": "^0.52.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
     "mssql": "^6.2.3",
     "uuid": "^8.3.2"
+  },
+  "resolutions": {
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
   }
 }

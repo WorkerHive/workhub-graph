@@ -10,9 +10,12 @@ import MongoAdapterFactory from './lib/adapters/mongo.js';
 import UserTypes from './lib/flow-provider/user-types.js'
 import FlowProvider from './lib/flow-provider/index.js';
 
-const MongoStore = await MongoStoreFactory({url: 'mongodb://localhost', dbName: 'workhub'})
+import FileStore from './lib/file-store/index.js';
+
+const MongoStore = await MongoStoreFactory({url: process.env.MONGO_URL || 'mongodb://localhost', dbName: process.env.MONGO_DB || 'workhub'})
 const MongoAdapter = MongoAdapterFactory(MongoStore)
 
+const fileStore = await FileStore()
 const flowProvider = await FlowProvider(UserTypes, MongoAdapter);
 
 const server = new ApolloServer({
@@ -24,7 +27,7 @@ const server = new ApolloServer({
     if(token){
       user = jwt_decode(token)
     }
-    return {user, connections:{flow: flowProvider, app: MongoAdapter}}
+    return {user, connections:{files: fileStore, flow: flowProvider, app: MongoAdapter}}
   }
 })
 

@@ -1,3 +1,4 @@
+import { gql } from 'apollo-server';
 
 export const typeDef = `
   extend type Query {
@@ -14,6 +15,7 @@ export const typeDef = `
     status: String
   }
   `
+console.log(gql(typeDef).definitions.filter(a => a.kind == 'ObjectTypeDefinition')[0].fields)
 export const resolvers =  {
     Query: {
       project: () => {},
