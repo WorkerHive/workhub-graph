@@ -57,12 +57,14 @@ export const resolvers = {
         },
         convertFile: async (parent, {fileId, targetFormat}, context) => {
           let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
+          console.log("Convert", files, targetFormat, fileId)
           if(files && files.length > 0){
             let conversionStatus = {
               file: files[0],
               target: targetFormat,
               status: "WAITING"
             }
+            console.log("Send to queue")
             context.connections.flow.sendToQueue(`file-converter`, conversionStatus)
             return conversionStatus
           }
