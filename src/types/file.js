@@ -33,7 +33,10 @@ export const resolvers = {
     Query:{
         files: async (parent, args, context) => {
           let files = await context.connections.app.request('files', {}).toArray()
-          return files;
+          return files.map((x) => ({
+            id: x._id,
+            ...x,
+          }));
         },
         file: (parent, args) => {
 
