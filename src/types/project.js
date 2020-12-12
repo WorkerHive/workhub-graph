@@ -50,6 +50,7 @@ export const resolvers =  {
       attachFileToProject: async (parent, {fileId, projectId}, context) => {
         let files = await context.connections.flow.request("Projects", {id: projectId})
         if(files && files.length > 0){
+          console.log("Adding file", fileId, "to ", files)
           files = files[0].files || [];
           files.push(fileId)
           let result = await context.connections.flow.put("Projects", projectId, {files: files})
