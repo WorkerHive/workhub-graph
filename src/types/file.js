@@ -55,22 +55,28 @@ export const resolvers = {
         uploadFile: (parent, args, context) => {
           args.file.then(async file => {
             let stream = file.createReadStream()
-            
+          
             //Add file to IPFS
             let ipfsFile = await context.connections.files.upload(file.filename, stream)
 
-            //Write file to cae inputs as CID
-            let writeStream = fs.createWriteStream(`/data/cae/inputs/${ipfsFile.cid.toString()}`)
-            stream.pipe(writeStream)
-
-            let newFile = {
-              cid: ipfsFile.cid.toString(),
+            let files = await context.connections.app.request('files', {
               filename: file.filename,
-              extension: fileExtension(file.filename),
-            }
+              cid: ipfsFile.cid.toString()
+            })
 
-            //Add file to mongo store
-            await context.connections.app.add('files', newFile)
+            if(files && files.length > 0){
+              return files[0]
+            }else{
+              let newFile = {
+                cid: ipfsFile.cid.toString(),
+                filename: file.filename,
+                extension: fileExtension(file.filename),
+              }
+  
+              //Add file to mongo store
+              return await context.connections.app.add('files', newFile)
+            }
+              
           })
         },
         convertFile: async (parent, {fileId, targetFormat}, context) => {
