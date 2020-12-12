@@ -53,7 +53,7 @@ export const resolvers = {
     },
     Mutation: {
         uploadFile: (parent, args, context) => {
-          args.file.then(async file => {
+          return args.file.then(async file => {
             let stream = file.createReadStream()
           
             //Add file to IPFS
@@ -74,7 +74,8 @@ export const resolvers = {
               }
   
               //Add file to mongo store
-              return await context.connections.app.add('files', newFile).ops[0]
+              let file = await context.connections.app.add('files', newFile)
+              return file.ops[0]
             }
               
           })
