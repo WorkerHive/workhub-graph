@@ -9,6 +9,7 @@ export const typeDef = `
   extend type Mutation {
     addProject(project: ProjectInput): Project
     updateProject(projectId: ID, project: ProjectInput): Project
+    attachFileToProject(projectId: ID, fileId: ID): Project
   }
 
   input ProjectInput{
@@ -45,12 +46,24 @@ export const resolvers =  {
       updateProject: async (parent, {projectId, project}, context) => {
         let result = await context.connections.flow.put("Projects", projectId, project);
         return result;
+      },
+      attachFileToProject: async (parent, {fileId, projectId}, context) => {
+        let files = await context.connections.flow.request("Projects", {id: projectId})
+        if(files && files.length > 0){
+          files = files[0].files || [];
+          files.push(fileId)
+          let result = await context.connections.flow.put("Projects", projectId, {files: files})
+          return result;
+        }
       }
     },
     Project: {
       description: (parent, args, context) => {
         console.log(parent)
       },
+      files: (parent, args, context) => {
+        console.log(parent, args, context)
+      }
     }
   }
 
