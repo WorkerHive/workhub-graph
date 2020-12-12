@@ -22,6 +22,8 @@ export const typeDef = `
     id: ID
     name: String
     description: String
+    startDate: Date
+    endDate: Date
     files: [File]
     status: String
   }
