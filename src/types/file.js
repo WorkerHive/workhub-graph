@@ -75,9 +75,9 @@ export const resolvers = {
               }
   
               //Add file to mongo store
-              let file = await context.connections.flow.add("Files", newFile)
-              console.log("NEW FILES", file)
-              return file
+              let _file = await context.connections.flow.add("Files", newFile)
+              console.log("NEW FILES", _file)
+              return _file
             }
               
           })
