@@ -7,17 +7,23 @@ export const typeDef = `
   extend type Query {
     files: [File]
     file(id:ID): File
+    converters(sourceFormat: String): [Converter]
   }
 
   extend type Mutation {
     uploadFile(file: Upload!): File
     convertFile(fileId: ID, targetFormat: String): ConversionStatus
   }
+
+  type Converter {
+    sourceFormat: String
+    targetFormat: String
+    pipeline: String
+  }
   
   type ConversionStatus {
-    file: File
-    target: String
-    status: String
+    msg: String
+    error: String
   }
 
   type File {
@@ -40,6 +46,9 @@ export const resolvers = {
         },
         file: (parent, args) => {
 
+        },
+        converters: (parent, {sourceFormat}, context) => {
+          return context.connections.files.getConverters(sourceFormat)
         }
     },
     Mutation: {
@@ -62,14 +71,9 @@ export const resolvers = {
           let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
           console.log("Convert", files, targetFormat, fileId)
           if(files && files.length > 0){
-            let conversionStatus = {
-              file: files[0],
-              target: targetFormat,
-              status: "WAITING"
-            }
-            console.log("Send to queue")
-            context.connections.flow.addToQueue(`file-converter`, JSON.stringify(conversionStatus))
-            return conversionStatus
+            return await context.connections.files.convert(files[0].cid, files[0].extension, targetFormat)
+          }else{
+            return {error: "No file found matching that description"}
           }
 
         }
