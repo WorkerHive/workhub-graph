@@ -11,10 +11,15 @@ export const typeDef = `
   }
 
   extend type Mutation {
-    uploadFile(file: Upload!): File
+    uploadFile(file: Upload!): FileUploadResult
     convertFile(fileId: ID, targetFormat: String): ConversionStatus
   }
 
+  type FileUploadResult {
+    error: String
+    duplicate: Boolean
+    file: File
+  }
   type Converter {
     sourceFormat: String
     targetFormat: String
@@ -63,7 +68,10 @@ export const resolvers = {
 
             if(files && files.length > 0){
               console.log("FILES", files)
-              return files[0]
+              return {
+                duplicate: true,
+                file: files[0]
+              }
             }else{
               let newFile = {
                 cid: ipfsFile.cid.toString(),
@@ -74,7 +82,10 @@ export const resolvers = {
               //Add file to mongo store
               let _file = await context.connections.flow.add("Files", newFile)
               console.log("NEW FILES", _file)
-              return _file
+              return {
+                duplicate: false,
+                file: _file
+              }
             }
               
           })
