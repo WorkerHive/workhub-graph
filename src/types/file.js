@@ -62,7 +62,7 @@ export const resolvers = {
             let files = await context.connections.app.request('files', {
               filename: file.filename,
               cid: ipfsFile.cid.toString()
-            })
+            }).toArray()
 
             if(files && files.length > 0){
               return files[0]
@@ -74,7 +74,7 @@ export const resolvers = {
               }
   
               //Add file to mongo store
-              return await context.connections.app.add('files', newFile)
+              return await context.connections.app.add('files', newFile).ops[0]
             }
               
           })
