@@ -59,10 +59,10 @@ export const resolvers = {
             //Add file to IPFS
             let ipfsFile = await context.connections.files.upload(file.filename, stream)
 
-            let files = await context.connections.app.request('files', {
+            let files = await context.connections.flow.request("Files", {
               filename: file.filename,
               cid: ipfsFile.cid.toString()
-            }).toArray()
+            })
 
             if(files && files.length > 0){
               return files[0]
@@ -74,8 +74,8 @@ export const resolvers = {
               }
   
               //Add file to mongo store
-              let file = await context.connections.app.add('files', newFile)
-              return file.ops[0]
+              let file = await context.connections.flow.add("Files", newFile)
+              return file
             }
               
           })
