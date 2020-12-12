@@ -11,6 +11,7 @@ export const typeDef = `
   }
 
   type UserToken {
+    error: String
     token: String
   }
 
@@ -40,7 +41,10 @@ export const resolvers = {
                 token: jwt.sign({username: user[0].username, id: user[0].id}, 'test')
             }
         }else{
-            throw Error("No such user found")
+          return {
+            error: "No user found"
+          }
+
         }
     }  
   },
