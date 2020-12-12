@@ -65,6 +65,7 @@ export const resolvers = {
             })
 
             if(files && files.length > 0){
+              console.log("FILES", files)
               return files[0]
             }else{
               let newFile = {
@@ -75,6 +76,7 @@ export const resolvers = {
   
               //Add file to mongo store
               let file = await context.connections.flow.add("Files", newFile)
+              console.log("NEW FILES", file)
               return file
             }
               
