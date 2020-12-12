@@ -38,14 +38,11 @@ export const typeDef = `
 export const resolvers = {
     Query:{
         files: async (parent, args, context) => {
-          let files = await context.connections.app.request('files', {}).toArray()
-          return files.map((x) => ({
-            id: x._id,
-            ...x,
-          }));
+          let files = await context.connections.flow.request("Files")
+          return files
         },
         file: (parent, args) => {
-
+          
         },
         converters: (parent, {sourceFormat}, context) => {
           return context.connections.files.getConverters(sourceFormat)
