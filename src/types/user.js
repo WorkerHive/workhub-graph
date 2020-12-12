@@ -38,7 +38,11 @@ export const resolvers = {
         let user = await context.connections.app.request('users', {username: username, password: password}).toArray()
         if(user.length > 0){
             return {
-                token: jwt.sign({username: user[0].username, id: user[0].id}, 'test')
+              token: jwt.sign({
+                name: user[0].name,
+                username: user[0].username, 
+                id: user[0]._id
+              }, 'test')
             }
         }else{
           return {
