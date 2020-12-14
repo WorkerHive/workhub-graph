@@ -75,6 +75,7 @@ CalendarBooking: {
     }
   },
   project: async (parent, args, context) => {
+    console.log("PROJECT", parent)
     let project = await context.connections.flow.request("Projects", {id: parent.projectId})
     console.log(project)
     return project;
