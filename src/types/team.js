@@ -42,7 +42,7 @@ export const resolvers = {
       return await context.connections.flow.add("Team Members", member)
     },
     updateTeamMember: async(parent, {memberId, member}, context) => {
-      return await context.connections.flow.put("TeamMembers", memberId, member)
+      return await context.connections.flow.put("Team Members", memberId, member)
     }
   },
   TeamMember: {

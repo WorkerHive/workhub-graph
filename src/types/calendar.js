@@ -66,7 +66,7 @@ Mutation: {
 },
 CalendarBooking: {
   items: async (parent, args, context) => {
-    let team = await context.connections.flow.request("Team", {id: {$in: parent.items.team || []}})
+    let team = await context.connections.flow.request("Team Members", {id: {$in: parent.items.team || []}})
     let equipment = await context.connections.flow.request("Equipment", {id: {$in: parent.items.equipment || []}})
     return {
       team: team,
@@ -74,7 +74,7 @@ CalendarBooking: {
     }
   },
   project: async (parent, args, context) => {
-    let project = await context.connections.flow.request("Project", {id: parent.project})[0]
+    let project = await context.connections.flow.request("Projects", {id: parent.project})[0]
     return project;
   }
 }
