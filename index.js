@@ -49,7 +49,11 @@ const server = new ApolloServer({
 
 server.applyMiddleware({app})
 
-app.use(['/', '/dashboard*'], express.static('./workhub-web/build'))
+app.use(express.static('./workhub-web/build'))
+
+app.get(['/', '/dashboard*'], (req, res) => {
+  res.sendFile('./workhub-web/build/index.html')
+})
 
 //Start GraphQL Server
 greenlock.init({
