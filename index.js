@@ -11,14 +11,17 @@
 */
 
 //GraphQL imports : Apollo Backend
-import { ApolloServer, gql } from 'apollo-server'
+import express from 'express';
+import { ApolloServer, gql } from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
 import HubFactory from './lib/hub/index.js';
 
 import jwt_decode from 'jwt-decode'
 
-const Hub = await HubFactory();
+const app = express()
+
+//const Hub = await HubFactory();
 
 //Setup GraphQL Server
 const server = new ApolloServer({
@@ -34,15 +37,19 @@ const server = new ApolloServer({
     return {
       user,
       connections:{
-        files: Hub.files,
+        /*      files: Hub.files,
         flow: Hub.flow,
-        app: Hub.adapter
+        app: Hub.adapter*/
       }
     }
   }
 })
 
+server.applyMiddleware({app})
+
+app.use(express.static('./workhub-web/build'))
+
 //Start GraphQL Server
-server.listen().then(({url}) => {
-  console.log(`GraphQL Listening on ${url}`)
+app.listen({port: 4000}, () => {
+  console.log(`GraphQL Listening on http://localhost:4000${server.graphqlPath}`)
 })
