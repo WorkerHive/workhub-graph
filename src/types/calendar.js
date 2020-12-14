@@ -65,11 +65,17 @@ Mutation: {
   },
 },
 CalendarBooking: {
-  items: (parent, args, context) => {
-    console.log("ITEMS", parent, args, context)
+  items: async (parent, args, context) => {
+    let team = await context.connections.flow.request("Team", {id: {$in: parent.items.team || []}})
+    let equipment = await context.connections.flow.request("Equipment", {id: {$in: parent.items.equipment || []}})
+    return {
+      team: team,
+      equipment: equipment
+    }
   },
   project: (parent, args, context) => {
-    console.log("PROJECT", parent, args, context)
+    let project = await context.connections.flow.request("Project", {id: parent.project})[0]
+    return project;
   }
 }
 }
