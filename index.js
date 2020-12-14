@@ -21,7 +21,7 @@ import jwt_decode from 'jwt-decode'
 
 const app = express()
 
-//const Hub = await HubFactory();
+const Hub = await HubFactory();
 
 //Setup GraphQL Server
 const server = new ApolloServer({
@@ -37,9 +37,9 @@ const server = new ApolloServer({
     return {
       user,
       connections:{
-        /*      files: Hub.files,
+        files: Hub.files,
         flow: Hub.flow,
-        app: Hub.adapter*/
+        app: Hub.adapter
       }
     }
   }
