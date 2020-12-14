@@ -1,3 +1,4 @@
+import { mapForward } from "../../lib/adapters/object-map"
 
 export const typeDef = `
 extend type Query {
@@ -61,6 +62,7 @@ Mutation: {
         project: projectId,
         items: booking
     }
+
     return await context.connections.flow.add("Calendar", _booking)
   },
 },
@@ -74,7 +76,8 @@ CalendarBooking: {
     }
   },
   project: async (parent, args, context) => {
-    let project = await context.connections.flow.request("Projects", {id: parent.project})[0]
+    let project = await context.connections.flow.request("Projects", {id: parent.projectId})
+    console.log(project)
     return project;
   }
 }
