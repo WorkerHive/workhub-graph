@@ -17,6 +17,11 @@ import {
 } from './equipment.js'
 
 import {
+  typeDef as Calendar,
+  resolvers as calendarResolvers
+} from './calendar.js';
+
+import {
   typeDef as File,
   resolvers as fileResolvers
 } from './file.js'
@@ -50,5 +55,5 @@ const _resolvers = {
   JSONObject: GraphQLJSONObject
 }
 
-export const resolvers = merge(_resolvers, projectResolvers, teamResolvers, equipmentResolvers, fileResolvers, userResolvers, integrationResolvers)
-export const typeDefs = [Query, Project, Team, Equipment, File, User, Integrations]
+export const resolvers = merge(_resolvers, projectResolvers, teamResolvers, equipmentResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
+export const typeDefs = [Query, Project, Team, Equipment, File, User, Integrations, Calendar]
