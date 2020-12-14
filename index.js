@@ -12,9 +12,11 @@
 
 //GraphQL imports : Apollo Backend
 import express from 'express';
+import greenlock from 'greenlock-express';
 import { ApolloServer, gql } from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
+import path from 'path';
 import HubFactory from './lib/hub/index.js';
 
 import jwt_decode from 'jwt-decode'
@@ -50,6 +52,9 @@ server.applyMiddleware({app})
 app.use(express.static('./workhub-web/build'))
 
 //Start GraphQL Server
-app.listen({port: 4000}, () => {
-  console.log(`GraphQL Listening on http://localhost:4000${server.graphqlPath}`)
-})
+greenlock.init({
+  packageRoot: path.resolve(),
+  configDir: './greenlock.d',
+  maintainerEmail: "professional.balbatross@gmail.com",
+  cluster: false
+}).serve(app);

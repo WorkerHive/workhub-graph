@@ -19,6 +19,7 @@
     "graphql": "^15.4.0",
     "graphql-type-json": "^0.3.2",
     "graphql-upload": "^11.0.0",
+    "greenlock-express": "v4",
     "ipfs": "^0.52.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
