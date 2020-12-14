@@ -54,11 +54,12 @@ Query: {
   }
 },
 Mutation: {
-  addBooking: async (parent, {time, booking}, context) => {
-    
+  addBooking: async (parent, {time, projectId, booking}, context) => {
+    console.log("ADD BOOKING", time, projectId, booking)
     let _booking = {
         ...time,
-        ...booking
+        project: projectId,
+        items: booking
     }
     return await context.connections.flow.add("Calendar", _booking)
   },
