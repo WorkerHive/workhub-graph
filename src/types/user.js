@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
 export const typeDef = `
 
@@ -35,7 +36,8 @@ export const resolvers = {
   },
   Mutation: {
     login: async (parent, {username, password}, context) => {
-        let user = await context.connections.app.request('users', {username: username, password: password}).toArray()
+        let pwd = crypto.createHash('sha256').update(password).digest('hex')
+        let user = await context.connections.app.request('users', {username: username, password: pwd}).toArray()
         if(user.length > 0){
             return {
               token: jwt.sign({
