@@ -52,7 +52,7 @@ server.applyMiddleware({app})
 app.use(express.static('./workhub-web/build'))
 
 app.get(['/', '/dashboard*'], (req, res) => {
-  res.sendFile('./workhub-web/build/index.html')
+  res.sendFile('/graph/workhub-web/build/index.html')
 })
 
 //Start GraphQL Server
