@@ -5,7 +5,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  addBooking(time: CalendarInput, booking: BookingInput): CalendarBooking
+  addBooking(time: CalendarInput, projectId: ID, booking: BookingInput): CalendarBooking
 }
 
 input CalendarInput {
@@ -16,11 +16,13 @@ input CalendarInput {
 }
 
 input BookingInput {
-    project: ID
-    items: {
-        equipment: [ID]
-        team: [ID]
-    }
+    equipment: [ID]
+    team: [ID]
+}
+
+type BookingItems {
+    equipment: [ID]
+    team: [ID]
 }
 
 type CalendarBooking {
@@ -30,10 +32,7 @@ type CalendarBooking {
     endTime: Int
     date: Int
     project: Project
-    items: {
-        equipment: [Equipment]
-        team: [TeamMember]
-    }
+    items: BookingItems
 }
 
 `
