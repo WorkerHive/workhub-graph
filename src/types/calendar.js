@@ -21,8 +21,8 @@ input BookingInput {
 }
 
 type BookingItems {
-    equipment: [ID]
-    team: [ID]
+    equipment: [Equipment]
+    team: [TeamMember]
 }
 
 type CalendarBooking {
@@ -63,5 +63,13 @@ Mutation: {
     }
     return await context.connections.flow.add("Calendar", _booking)
   },
+},
+CalendarBooking: {
+  items: (parent, args, context) => {
+    console.log("ITEMS", parent, args, context)
+  },
+  project: (parent, args, context) => {
+    console.log("PROJECT", parent, args, context)
+  }
 }
 }
