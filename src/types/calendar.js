@@ -1,4 +1,3 @@
-import { mapForward } from "../../lib/adapters/object-map"
 
 export const typeDef = `
 extend type Query {
