@@ -11,6 +11,8 @@ export const typeDef = `
   }
 
   input TeamMemberInput {
+    username: String
+    password: String
     name: String
     email: String
     phoneNumber: String
@@ -19,6 +21,8 @@ export const typeDef = `
   type TeamMember {
     "A member of your WorkHub Team"
     id: ID
+    username: String
+    password: String
     name: String
     email: String
     phoneNumber: String
