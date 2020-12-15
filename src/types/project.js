@@ -10,6 +10,7 @@ export const typeDef = `
     addProject(project: ProjectInput): Project
     updateProject(projectId: ID, project: ProjectInput): Project
     attachFileToProject(projectId: ID, fileId: ID): Project
+    removeProject(projectId: ID): Boolean
   }
 
   input ProjectInput{
@@ -46,6 +47,9 @@ export const resolvers =  {
       updateProject: async (parent, {projectId, project}, context) => {
         let result = await context.connections.flow.put("Projects", projectId, project);
         return result;
+      },
+      removeProject: async (parent, {projectId}, context) => {
+        return await context.connections.flow.remove("Projects", projectId)
       },
       attachFileToProject: async (parent, {fileId, projectId}, context) => { 
         let files = await context.connections.flow.request("Projects", {id: projectId})
