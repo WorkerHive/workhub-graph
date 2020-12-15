@@ -7,6 +7,7 @@ export const typeDef = `
   extend type Mutation {
     addEquipment(equipment: EquipmentInput): Equipment
     updateEquipment(equipmentId:String, equipment:EquipmentInput): Equipment
+    removeEquipment(equipmentId: String): Boolean
   }
 
   input EquipmentInput {
@@ -37,6 +38,9 @@ export const resolvers = {
     },
     updateEquipment: async(parent, {equipmentId, equipment}, context) => {
       return await context.connections.flow.put("Equipment", equipmentId, equipment)
+    },
+    removeEquipment: async(parent, {equipmentId}, context) => {
+      return await context.connections.flow.remove("Equipment", equipmentId)
     }
   },
   Equipment: {
