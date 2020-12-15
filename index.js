@@ -17,6 +17,7 @@ import { ApolloServer, gql } from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
 import path from 'path';
+import YJS from './lib/yjs/server.js';
 import HubFactory from './lib/hub/index.js';
 
 import jwt_decode from 'jwt-decode'
@@ -24,6 +25,7 @@ import jwt_decode from 'jwt-decode'
 const app = express()
 
 const Hub = await HubFactory();
+const yjs = YJS();
 
 //Setup GraphQL Server
 const server = new ApolloServer({
