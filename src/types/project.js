@@ -17,9 +17,6 @@ export const typeDef = `
     name: String
     description: String
     status: String
-    files: [File]
-    startDate: Int
-    endDate: Int
   }
 
   type Project {
