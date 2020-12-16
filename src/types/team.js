@@ -7,7 +7,8 @@ export const typeDef = `
 
   extend type Mutation {
     addTeamMember(member:TeamMemberInput):TeamMember
-    updateTeamMember(memberId:String, member:TeamMemberInput):TeamMember
+    updateTeamMember(memberId: String, member:TeamMemberInput):TeamMember
+    removeTeamMember(memberId: ID): Boolean
   }
 
   input TeamMemberInput {
@@ -47,6 +48,9 @@ export const resolvers = {
     },
     updateTeamMember: async(parent, {memberId, member}, context) => {
       return await context.connections.flow.put("Team Members", memberId, member)
+    },
+    removeTeamMember: async(parent, {memberId}, context) => {
+      return await context.connections.flow.remove("Team Members", memberId)
     }
   },
   TeamMember: {
