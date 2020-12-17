@@ -6878,7 +6878,7 @@ widest-line@^3.1.0:
 
 "workhub-pipelines@https://github.com/WorkerHive/workhub-pipelines":
   version "1.0.0"
-  resolved "https://github.com/WorkerHive/workhub-pipelines#05edd1fbdad93abda8040ffc00c87152879988f9"
+  resolved "https://github.com/WorkerHive/workhub-pipelines#14907ee70219c33ce2146a1bc65a77137ff8af7d"
   dependencies:
     dockerode "^3.2.1"
 
