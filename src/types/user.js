@@ -43,7 +43,8 @@ export const resolvers = {
               token: jwt.sign({
                 name: user[0].name,
                 username: user[0].username, 
-                id: user[0]._id
+                id: user[0]._id,
+                admin: user[0].admin
               }, 'test')
             }
         }else{
