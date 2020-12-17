@@ -14,6 +14,7 @@ export const typeDef = `
   input TeamMemberInput {
     username: String
     password: String
+    status: String
     admin: Boolean
     name: String
     email: String
@@ -30,6 +31,7 @@ export const typeDef = `
     id: ID
     username: String
     password: String
+    status: String
     admin: Boolean
     name: String
     email: String
