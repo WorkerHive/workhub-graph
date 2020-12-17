@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fileExtension from 'file-extension';
 import mongodb from 'mongodb';
+import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
 
 export const typeDef = `
