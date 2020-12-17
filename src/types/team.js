@@ -51,6 +51,7 @@ export const resolvers = {
   },
   Mutation: {
     addTeamMember: async (parent, {member}, context) => {
+      if(!member.password) member.status = "pending"
       return await context.connections.flow.add("Team Members", member)
     },
     updateTeamMember: async(parent, {memberId, member}, context) => {
