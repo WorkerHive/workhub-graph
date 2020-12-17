@@ -19,11 +19,17 @@ export const typeDef = `
     phoneNumber: String
   }
 
+  type Role {
+    id: ID!
+    name: String
+  }
+
   type TeamMember {
     "A member of your WorkHub Team"
     id: ID
     username: String
     password: String
+    role: Role
     name: String
     email: String
     phoneNumber: String
