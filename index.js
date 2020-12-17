@@ -25,7 +25,7 @@ import jwt_decode from 'jwt-decode'
 const app = express()
 
 const Hub = await HubFactory();
-const yjs = YJS();
+
 
 //Setup GraphQL Server
 const server = new ApolloServer({
@@ -63,4 +63,7 @@ greenlock.init({
   configDir: './greenlock.d',
   maintainerEmail: "professional.balbatross@gmail.com",
   cluster: false
+}).ready(() => {
+  console.log("Greenlock ready")
+  const yjs = YJS();
 }).serve(app);
