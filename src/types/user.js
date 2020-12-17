@@ -1,19 +1,36 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import mongodb from 'mongodb';
 
 export const typeDef = `
 
   extend type Query {
     users: [User]
+    getSignupLink(user: ID): SignupToken
   }
 
   extend type Mutation {
     login(username: String, password: String): UserToken
+    signup(user: UserInput): UserToken
+  }
+
+  type SignupToken {
+    validTo: Int
+    token: String
   }
 
   type UserToken {
     error: String
     token: String
+  }
+
+  input UserInput {
+    username: String
+    password: String
+
+    name: String
+    email: String
+    phoneNumber: String
   }
 
   type User {
@@ -33,6 +50,15 @@ export const resolvers = {
     users: () => {
 
     },
+    getSignupLink: async (parent, {user}, context) => {
+      return {
+        token: jwt.sign({
+          type: 'signup',
+          userId: user
+        }, 'test'),
+        validTo: ((new Date().getTime() / 1000) + 24 * 60 * 60)
+      }
+    }
   },
   Mutation: {
     login: async (parent, {username, password}, context) => {
@@ -53,6 +79,19 @@ export const resolvers = {
           }
 
         }
+    },
+    signup: async (parent, {user}, context) => {
+      if(context.user.type == "signup"){
+        let accounts = await context.connections.app.request('users', {_id: mongodb.ObjectId(context.user.userId), status: "pending"}).toArray()
+
+        if(accounts.length > 0){
+          //Update account details
+        }else{
+          return {error: "Account not available for signup"}
+        }
+      }else{
+        return {error: "Wrong type of signup token supplied"}
+      }
     }  
   },
   User: {

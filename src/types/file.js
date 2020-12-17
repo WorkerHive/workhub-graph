@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fileExtension from 'file-extension';
 import mongodb from 'mongodb';
+import { join } from 'path';
 
 export const typeDef = `
 
@@ -20,10 +21,31 @@ export const typeDef = `
     duplicate: Boolean
     file: File
   }
+
   type Converter {
     sourceFormat: String
     targetFormat: String
-    pipeline: String
+    pipeline: Pipeline
+  }
+
+  type Pipeline{
+    steps: [PipelineWorkers]
+    links: [PipelineLinks]
+    finalQueue: String
+  }
+
+  type PipelineLinks {
+    id: ID
+    source: String
+    target: String
+  }
+
+  type PipelineWorkers {
+    id: ID
+    dockerImage: String
+    queue: String
+    input: String
+    output: String
   }
   
   type ConversionStatus {
@@ -50,7 +72,11 @@ export const resolvers = {
           
         },
         converters: (parent, {sourceFormat}, context) => {
-          return context.connections.files.getConverters(sourceFormat)
+          if(!sourceFormat){
+            return context.connections.pipeline.getPipelines();
+          }else{
+            return context.connections.pipeline.getPipelineFormat(sourceFormat)
+          }
         }
     },
     Mutation: {
@@ -94,7 +120,21 @@ export const resolvers = {
           let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
           console.log("Convert", files, targetFormat, fileId)
           if(files && files.length > 0){
-            return await context.connections.files.convert(files[0].cid, files[0].extension, targetFormat)
+
+            let job_id = uuidv4()
+            await context.connections.app.add('pipeline-job', {
+              job_id: job_id,
+              type: 'file-conversion',
+              targetFormat: targetFormat,
+              cid: files[0].cid,
+              fileId: fileId
+            })
+            
+            let pipeline = context.connections.pipeline.getPipelineFormat(files[0].extension, targetFormat)
+            
+            let queue = pipeline.runPipeline(uuidv4(), files[0].cid)
+
+            //return await context.connections.files.convert(files[0].cid, files[0].extension, targetFormat)
           }else{
             return {error: "No file found matching that description"}
           }

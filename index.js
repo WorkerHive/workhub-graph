@@ -43,7 +43,8 @@ const server = new ApolloServer({
       connections:{
         files: Hub.files,
         flow: Hub.flow,
-        app: Hub.adapter
+        app: Hub.adapter,
+        pipeline: Hub.pipelineManager
       }
     }
   }
