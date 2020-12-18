@@ -67,7 +67,7 @@ export const resolvers =  {
       description: (parent, args, context) => {
         console.log(parent)
       },
-      files: (parent, args, context) => {
+      files: async (parent, args, context) => {
         return await context.connections.flow.request("Files", {$in: parent.files})
       }
     }
