@@ -133,7 +133,7 @@ export const resolvers = {
             
             let pipeline = context.connections.pipeline.getPipelineFormat(files[0].extension, targetFormat)
             
-            let queue = pipeline.runPipeline(uuidv4(), files[0].cid)
+            let queue = pipeline.runPipeline(job_id, files[0].cid)
 
             //return await context.connections.files.convert(files[0].cid, files[0].extension, targetFormat)
           }else{
