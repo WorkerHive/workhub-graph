@@ -92,7 +92,9 @@ export const resolvers = {
     },
     Mutation: {
       installConverter: (parent, {converterId}, context) => {
-        context.connections.pipeline.getPipeline(converterId).pullSteps()
+        let pipelines = context.connections.pipeline.getPipelines();
+        console.log(pipelines)
+        pipelines.filter((a) => a.id == converterId).map((x) => x.pullSteps())
         context.connections.app.add('converter', {installed: true, converter: converterId})
       },
         uploadFile: (parent, args, context) => {
