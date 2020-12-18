@@ -14,6 +14,7 @@ export const typeDef = `
 
   extend type Mutation {
     uploadFile(file: Upload!): FileUploadResult
+    installConverter(converterId: ID): Boolean
     convertFile(fileId: ID, targetFormat: String): ConversionStatus
   }
 
@@ -27,6 +28,7 @@ export const typeDef = `
     name: String
     sourceFormat: String
     targetFormat: String
+    installed: Boolean
     pipeline: Pipeline
   }
 
@@ -88,6 +90,10 @@ export const resolvers = {
         }
     },
     Mutation: {
+      installConverter: (parent, {converterId}, context) => {
+        context.connections.pipeline.getPipeline(converterId).pullSteps()
+        context.connections.app.add('converter', {installed: true, converter: converterId})
+      },
         uploadFile: (parent, args, context) => {
           return args.file.then(async file => {
             let stream = file.createReadStream()
@@ -148,5 +154,15 @@ export const resolvers = {
           }
 
         }
+    },
+    Converter: {
+      installed: async (parent, args, context) => {
+        let verter = await context.connections.app.request('converter', {converter: parent.id}).toArray()
+        if(verter && verter.length > 0){
+          return verter[0].installed;
+        }else{
+          return false;
+        }
+      }
     }
 }
