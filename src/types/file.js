@@ -25,6 +25,7 @@ export const typeDef = `
   }
 
   type Converter {
+    id: ID
     name: String
     sourceFormat: String
     targetFormat: String
