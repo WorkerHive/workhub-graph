@@ -6872,13 +6872,13 @@ widest-line@^3.1.0:
 
 "workhub-mq@https://github.com/WorkerHive/workhub-mq":
   version "1.0.0"
-  resolved "https://github.com/WorkerHive/workhub-mq#f57315709800262052f3251c2aa3da0b0ca5cebf"
+  resolved "https://github.com/WorkerHive/workhub-mq#084df25a1ef4ac38f4a2481200acb25eab9fb507"
   dependencies:
     amqplib "^0.6.0"
 
 "workhub-pipelines@https://github.com/WorkerHive/workhub-pipelines":
   version "1.0.0"
-  resolved "https://github.com/WorkerHive/workhub-pipelines#d31e088fa57daccc78d5d31cf70019020a0c3aaa"
+  resolved "https://github.com/WorkerHive/workhub-pipelines#74c261afa7a6cd7084dc89bd9e2ce48a7653b9c2"
   dependencies:
     dockerode "^3.2.1"
 
