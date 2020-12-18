@@ -24,6 +24,7 @@ export const typeDef = `
   }
 
   type Converter {
+    name: String
     sourceFormat: String
     targetFormat: String
     pipeline: Pipeline
