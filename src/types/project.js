@@ -68,7 +68,7 @@ export const resolvers =  {
         console.log(parent)
       },
       files: async (parent, args, context) => {
-        return await context.connections.flow.request("Files", {$in: parent.files})
+        return await context.connections.flow.request("Files", {_id: {$in: parent.files.map(x => mongodb.ObjectId(x))}})
       }
     }
   }
