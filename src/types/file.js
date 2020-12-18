@@ -54,10 +54,16 @@ export const typeDef = `
     error: String
   }
 
+  type Conversion {
+    extension: String
+    cid: String
+  }
+
   type File {
     id: ID!
     cid: String
     filename: String
+    conversion: Conversion
     extension: String
   }
 
