@@ -22,7 +22,7 @@ import HubFactory from './lib/hub/index.js';
 
 import jwt_decode from 'jwt-decode'
 
-cont { ApolloServer } = ApolloServerExpress;
+const { ApolloServer } = ApolloServerExpress;
 
 const app = express()
 
