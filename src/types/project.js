@@ -1,5 +1,6 @@
-import { gql } from 'apollo-server';
+import apollo from 'apollo-server';
 import mongodb from 'mongodb';
+const { gql } = apollo;
 
 export const typeDef = `
   extend type Query {
