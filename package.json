@@ -26,6 +26,7 @@
     "lodash": "^4.17.20",
     "mongodb": "^3.6.3",
     "mssql": "^6.2.3",
+    "uint8-to-base64": "^0.2.0",
     "uuid": "^8.3.2",
     "workhub-mq": "https://github.com/WorkerHive/workhub-mq",
     "workhub-pipelines": "https://github.com/WorkerHive/workhub-pipelines",
