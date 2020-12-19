@@ -13,7 +13,7 @@
 //GraphQL imports : Apollo Backend
 import express from 'express';
 import greenlock from 'greenlock-express';
-import { ApolloServer, gql } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
 import path from 'path';
