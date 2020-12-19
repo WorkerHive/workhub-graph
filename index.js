@@ -24,9 +24,9 @@ import jwt_decode from 'jwt-decode'
 
 const { ApolloServer } = ApolloServerExpress;
 
-const app = express()
 
 (async () => {
+  const app = express()
 
 
 
