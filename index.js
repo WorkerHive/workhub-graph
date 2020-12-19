@@ -24,6 +24,10 @@ import jwt_decode from 'jwt-decode'
 
 const app = express()
 
+(async () => {
+
+
+
 const Hub = await HubFactory();
 
 
@@ -68,3 +72,5 @@ greenlock.init({
   console.log("Greenlock ready")
   const yjs = YJS();
 }).serve(app);
+
+})()
