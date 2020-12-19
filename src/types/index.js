@@ -1,6 +1,6 @@
 import lodash from 'lodash';
-import GraphQLJSON, {GraphQLJSONObject } from 'graphql-type-json';
-
+import GraphQLJSON from 'graphql-type-json';
+const { GraphQLJSONObject } = GraphQLJSON
 import { 
   typeDef as Project,
   resolvers as projectResolvers
