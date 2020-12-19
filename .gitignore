@@ -1,3 +1,4 @@
 node_modules/
 greenlock.d/
+ydata/
 .greenlockrc
