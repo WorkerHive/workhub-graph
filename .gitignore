@@ -2,3 +2,4 @@ node_modules/
 greenlock.d/
 ydata/
 .greenlockrc
+lib/file-store/test-repo/
