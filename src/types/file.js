@@ -16,6 +16,12 @@ export const typeDef = `
     uploadFile(file: Upload!): FileUploadResult
     installConverter(converterId: ID): Boolean
     convertFile(fileId: ID, targetFormat: String): ConversionStatus
+    connectNode(nodeKey: String): NodeConfiguration
+  }
+
+  type NodeConfiguration{
+    swarmKey: String
+    peerDiscovery: String
   }
 
   type FileUploadResult {
@@ -91,6 +97,12 @@ export const resolvers = {
         }
     },
     Mutation: {
+      connectNode: async (parent, args, context) => {
+        return {
+          swarmKey: context.connections.files.swarmKey,
+          peerDiscovery: process.env.WORKHUB_DOMAIN
+        }
+      },
       installConverter: (parent, {converterId}, context) => {
         let pipelines = context.connections.pipeline.getPipelines();
         console.log(pipelines)
