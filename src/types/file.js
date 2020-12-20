@@ -21,6 +21,7 @@ export const typeDef = `
 
   type NodeConfiguration{
     swarmKey: String
+    peerId: String
     peerDiscovery: String
   }
 
@@ -100,6 +101,7 @@ export const resolvers = {
       connectNode: async (parent, args, context) => {
         return {
           swarmKey: context.connections.files.swarmKey,
+          peerId: context.connections.files.id,
           peerDiscovery: process.env.WORKHUB_DOMAIN
         }
       },
