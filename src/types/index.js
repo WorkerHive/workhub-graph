@@ -33,7 +33,7 @@ import {
 
 import {
   typeDef as Knowledge
-} from './knowledge'
+} from './knowledge.js'
 
 import {
   typeDef as Integrations,
