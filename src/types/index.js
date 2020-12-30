@@ -1,5 +1,7 @@
 import lodash from 'lodash';
 import GraphQLJSON from 'graphql-type-json';
+import Server from 'apollo-server';
+const {GraphQLUpload } = Server;
 const { GraphQLJSONObject } = GraphQLJSON
 import { 
   typeDef as Project,
@@ -8,12 +10,10 @@ import {
 
 import {
   typeDef as Team,
-  resolvers as teamResolvers
 } from './team.js';
 
 import {
   typeDef as Equipment,
-  resolvers as equipmentResolvers
 } from './equipment.js'
 
 import {
@@ -39,21 +39,17 @@ import {
 const { merge } = lodash;
 
 const Query = `
+scalar Upload
 scalar JSON
 scalar JSONObject
-  type Query {
-    _empty: String
-  }
 
-  type Mutation {
-    _empty: String
-  }
 `
 
 const _resolvers = {
+  Upload: GraphQLUpload,
   JSON: GraphQLJSON,
   JSONObject: GraphQLJSONObject
 }
 
-export const resolvers = merge(_resolvers, projectResolvers, teamResolvers, equipmentResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
-export const typeDefs = [Query, Project, Team, Equipment, File, User, Integrations, Calendar]
+export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
+export const typeDefs = [Query, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')

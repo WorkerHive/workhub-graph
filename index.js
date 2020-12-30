@@ -20,21 +20,47 @@ import path from 'path';
 import YJS from './lib/yjs/server.js';
 import HubFactory from './lib/hub/index.js';
 
+import FP from '@workerhive/flow-provider';
+
 import jwt_decode from 'jwt-decode'
 
+const { FlowProvider } = FP;
 const { ApolloServer } = ApolloServerExpress;
 
 
 (async () => {
   const app = express()
 
+  const flowProvider = new FlowProvider(typeDefs, {}, resolvers)
 
 
-const Hub = await HubFactory();
+const Hub = await HubFactory(flowProvider);
+
 
 
 //Setup GraphQL Server
-const server = new ApolloServer({
+flowProvider.applyInit((opts) => {
+  let context = opts.context;
+
+  opts.context = ({req}) => {
+    const token = req.headers.authorization || '';
+    let user = null
+    if(token){
+      user = jwt_decode(token)
+    }
+    return {
+      user,
+      connections: {
+        ...context.connections,
+        files: Hub.files,
+        app: Hub.adapter,
+        pipeline: Hub.pipelineManager
+      }
+    }
+  }
+  return new ApolloServer(opts);
+})
+  /*{
   typeDefs,
   resolvers,
   context: ({req}) => {
@@ -54,9 +80,9 @@ const server = new ApolloServer({
       }
     }
   }
-})
+})*/
 
-server.applyMiddleware({app})
+flowProvider.server.applyMiddleware({app})
 
 app.use(express.static('./workhub-web/build'))
 

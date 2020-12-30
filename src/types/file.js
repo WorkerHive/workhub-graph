@@ -8,7 +8,7 @@ export const typeDef = `
 
   extend type Query {
     files: [File]
-    file(id:ID): File
+    file(id: String): File
     converters(sourceFormat: String): [Converter]
   }
 

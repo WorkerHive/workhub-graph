@@ -25,7 +25,7 @@ type BookingItems {
     team: [TeamMember]
 }
 
-type CalendarBooking {
+type CalendarBooking{
     id: ID
     allDay: Boolean
     startTime: Int

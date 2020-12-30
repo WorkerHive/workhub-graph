@@ -36,11 +36,11 @@ export const typeDef = `
   type User {
     "A user in the workhub"
     id: ID
-    username: String
-    password: String
-    name: String
-    email: String
-    phoneNumber: String
+    username: String @input
+    password: String @input
+    name: String @input
+    email: String @input
+    phoneNumber: String @input
   }
 
 `

@@ -4,3 +4,4 @@ ydata/
 .greenlockrc
 lib/file-store/test-repo/
 lib/file-store/workhub/
+workhub/
