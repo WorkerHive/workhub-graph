@@ -8383,7 +8383,7 @@ wordwrap@~0.0.2:
 
 "workhub-file-store@https://github.com/WorkerHive/workhub-file-store":
   version "1.0.0"
-  resolved "https://github.com/WorkerHive/workhub-file-store#f1c4b7f9b5cd118037856636bc080fd6e6db57e5"
+  resolved "https://github.com/WorkerHive/workhub-file-store#28dd1e53900bb95ee2f7648fb329fe45c191e04d"
   dependencies:
     ipfs "^0.52.3"
     libp2p "^0.30.0"
