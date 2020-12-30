@@ -32,6 +32,10 @@ import {
 } from './user.js';
 
 import {
+  typeDef as Knowledge
+} from './knowledge'
+
+import {
   typeDef as Integrations,
   resolvers as integrationResolvers
 } from './integrations.js';
@@ -52,4 +56,4 @@ const _resolvers = {
 }
 
 export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
-export const typeDefs = [Query, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
+export const typeDefs = [Query, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
