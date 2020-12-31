@@ -40,6 +40,10 @@ import {
   resolvers as integrationResolvers
 } from './integrations.js';
 
+import {
+  typeDef as Contacts
+} from './contact.js'
+
 const { merge } = lodash;
 
 const Query = `
@@ -56,4 +60,4 @@ const _resolvers = {
 }
 
 export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
-export const typeDefs = [Query, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
+export const typeDefs = [Query, Contacts, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
