@@ -854,6 +854,20 @@
     camel-case "^4.1.2"
     lodash "^4.17.20"
 
+"@workerhive/mq@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@workerhive/mq/-/mq-1.0.0.tgz#bf7f263f697c16005e4796ae957c364a2ecbeed2"
+  integrity sha512-L0Fpo+rnMJg8OO6dRWLi/dOIqIYXXQZQMJdx4eTRE3dcHBjrwmCOoMsIKAjacXjpSlm3zZisofxoO2CpgE+cGA==
+  dependencies:
+    amqplib "^0.6.0"
+
+"@workerhive/pipelines@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@workerhive/pipelines/-/pipelines-1.0.0.tgz#f29b2d66546e0984a59c8f0974cc5cb3c4064816"
+  integrity sha512-WoVASD1Wr8601kZVg7qZit647p4ACX3rT2jMsKcRxj/wSF054GBOs1DJFm88mo+d7RHUMGcjHsWsrYYaHTrV4g==
+  dependencies:
+    dockerode "^3.2.1"
+
 "@wry/equality@^0.1.2":
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/@wry/equality/-/equality-0.1.11.tgz"

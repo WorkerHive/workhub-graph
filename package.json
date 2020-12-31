@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@workerhive/flow-provider": "^1.0.4",
+    "@workerhive/mq": "^1.0.0",
+    "@workerhive/pipelines": "^1.0.0",
     "amqplib": "^0.6.0",
     "apollo-server": "^2.19.0",
     "apollo-server-express": "^2.19.0",
