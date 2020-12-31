@@ -150,7 +150,9 @@ type IntegrationMap {
   adapters: [LinkAdapter]
 }
 `
-
+function objectValues(obj) {
+    return Object.keys(obj).map(function (i) { return obj[i]; });
+}
 const findTypesWithDirective = (typeMap, directive) => {
     let types = objectValues(typeMap)
 
