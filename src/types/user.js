@@ -63,13 +63,13 @@ export const resolvers = {
   Mutation: {
     login: async (parent, {username, password}, context) => {
         let pwd = crypto.createHash('sha256').update(password).digest('hex')
-        let user = await context.connections.app.request('users', {username: username, password: pwd}).toArray()
-        if(user.length > 0){
+        let user = await context.connections.flow.get('TeamMember', {username: username, password: pwd})
+        if(user){
             return {
               token: jwt.sign({
                 name: user[0].name,
                 username: user[0].username, 
-                id: user[0]._id,
+                id: user[0].id,
                 admin: user[0].admin
               }, 'test')
             }
