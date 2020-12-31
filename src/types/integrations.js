@@ -150,6 +150,18 @@ type IntegrationMap {
   adapters: [LinkAdapter]
 }
 `
+
+const findTypesWithDirective = (typeMap, directive) => {
+    let types = objectValues(typeMap)
+
+    return types.filter((type) => {
+        return type.astNode && type.astNode.directives
+    }).filter((a) => {
+        let directives = a.astNode.directives.map((x) => x.name && x.name.value).filter((b) => b)
+        return directives.indexOf(directive) > -1
+    })
+}
+
 export const resolvers =  {
   IntegrationMap: {
     stores: async (parent, args, context) => {
@@ -172,7 +184,9 @@ export const resolvers =  {
     },
     adminTypes: async (parent, args, context, info) => {
         console.log(info)
-        return context.connections.flow.getTypes();
+        let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
+        console.log(types)
+        return types;
     },
     integrationMap: async (parent, args, context) => {
         let integrationMap = await context.connections.app.request('integration-map', {}).toArray()
