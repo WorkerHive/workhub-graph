@@ -40,7 +40,9 @@ const Hub = await HubFactory(flowProvider);
 
 //Setup GraphQL Server
 flowProvider.applyInit((opts) => {
-  let context = opts.context;
+  const context = opts.context;
+
+  console.log(context.flow)
 
   opts.context = ({req}) => {
     const token = req.headers.authorization || '';
