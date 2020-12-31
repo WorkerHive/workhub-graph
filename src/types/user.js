@@ -63,7 +63,7 @@ export const resolvers = {
   Mutation: {
     login: async (parent, {username, password}, context) => {
         let pwd = crypto.createHash('sha256').update(password).digest('hex')
-        console.log(username, pwd)
+        console.log(username, pwd, context.connections.flow)
         let user = await context.connections.flow.get('TeamMember', {username: username, password: pwd})
         console.log("USer attempt", user)
         if(user){
