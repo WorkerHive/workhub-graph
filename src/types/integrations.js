@@ -162,14 +162,16 @@ export const resolvers =  {
     }
   },
   Query: {
-    typePermissions: async (parent, args, context) => {
-        return context.connections.flow.typePermissions()
+    typePermissions: async (parent, args, context, info) => {
+        console.log("TYPES", info)
+      //  return context.connections.flow.typePermissions()
     },
     backlinks: async (parent, args, context) => {
         let links = await context.connections.app.request('backlinks', {}).toArray()
         return links;
     },
-    adminTypes: async (parent, args, context) => {
+    adminTypes: async (parent, args, context, info) => {
+        console.log(info)
         return context.connections.flow.getTypes();
     },
     integrationMap: async (parent, args, context) => {
