@@ -17,6 +17,7 @@ export const typeDef = `
   type SignupToken {
     validTo: Int
     token: String
+    error: String
   }
 
   type UserToken {
@@ -51,12 +52,23 @@ export const resolvers = {
 
     },
     getSignupLink: async (parent, {user}, context) => {
-      return {
-        token: jwt.sign({
-          type: 'signup',
-          userId: user
-        }, 'test'),
-        validTo: ((new Date().getTime() / 1000) + 24 * 60 * 60)
+
+      let newUser = await context.connections.flow.get('TeamMember', {id: user})
+      if(newUser){
+        return {
+          token: jwt.sign({
+            type: 'signup',
+            userId: user,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber
+          }, 'test'),
+          validTo: ((new Date().getTime() / 1000) + 24 * 60 * 60)
+        }
+      }else{
+        return {
+          error: "User not found"
+        }
       }
     }
   },
