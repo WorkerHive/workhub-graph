@@ -164,9 +164,9 @@ export const resolvers = {
     },
     Converter: {
       installed: async (parent, args, context) => {
-        let verter = await context.connections.app.get('converter', {converter: parent.id}).toArray()
-        if(verter && verter.length > 0){
-          return verter[0].installed;
+        let verter = await context.connections.flow.stores['app'].get('converter', {converter: parent.id})
+        if(verter){
+          return verter.installed;
         }else{
           return false;
         }
