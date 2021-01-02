@@ -7,13 +7,10 @@ import { join } from 'path';
 export const typeDef = `
 
   extend type Query {
-    files: [File]
-    file(id: String): File
     converters(sourceFormat: String): [Converter]
   }
 
   extend type Mutation {
-    uploadFile(file: Upload!): FileUploadResult
     installConverter(converterId: ID): Boolean
     convertFile(fileId: ID, targetFormat: String): ConversionStatus
     connectNode(nodeKey: String): NodeConfiguration
@@ -82,13 +79,6 @@ export const typeDef = `
 
 export const resolvers = {
     Query:{
-        files: async (parent, args, context) => {
-          let files = await context.connections.flow.request("Files")
-          return files
-        },
-        file: (parent, args) => {
-          
-        },
         converters: (parent, {sourceFormat}, context) => {
           if(!sourceFormat){
             return context.connections.pipeline.getPipelines();
@@ -111,7 +101,7 @@ export const resolvers = {
         pipelines.filter((a) => a.id == converterId).map((x) => x.pullSteps())
         context.connections.app.add('converter', {installed: true, converter: converterId})
       },
-        uploadFile: (parent, args, context) => {
+       /* uploadFile: (parent, args, context) => {
           return args.file.then(async file => {
             let stream = file.createReadStream()
           
@@ -146,7 +136,7 @@ export const resolvers = {
             }
               
           })
-        },
+        },*/
         convertFile: async (parent, {fileId, targetFormat}, context) => {
           let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
           console.log("Convert", files, targetFormat, fileId)
