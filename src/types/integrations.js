@@ -190,8 +190,8 @@ export const resolvers =  {
         console.log(types)
         return types.map((type) => {
             let def = {};
-            console.log(type.astNode)
             type.astNode.fields.forEach((field) => {
+                console.log(field.type)
                 def[field.name.value] = field.type.value;
             })
             return {
