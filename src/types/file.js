@@ -138,7 +138,7 @@ export const resolvers = {
           })
         },*/
         convertFile: async (parent, {fileId, targetFormat}, context) => {
-          let files = await context.connections.app.request('files', {_id: mongodb.ObjectId(fileId)}).toArray()
+          let files = await context.connections.app.get('files', {_id: mongodb.ObjectId(fileId)}).toArray()
           console.log("Convert", files, targetFormat, fileId)
           if(files && files.length > 0){
 
@@ -164,7 +164,7 @@ export const resolvers = {
     },
     Converter: {
       installed: async (parent, args, context) => {
-        let verter = await context.connections.app.request('converter', {converter: parent.id}).toArray()
+        let verter = await context.connections.app.get('converter', {converter: parent.id}).toArray()
         if(verter && verter.length > 0){
           return verter[0].installed;
         }else{
