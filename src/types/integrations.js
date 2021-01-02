@@ -188,7 +188,16 @@ export const resolvers =  {
         console.log(info)
         let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
         console.log(types)
-        return types;
+        return types.map((type) => {
+            let def = {};
+            type._fields.forEach((field) => {
+                def[field.name] = field.type;
+            })
+            return {
+                name: type.name,
+                typeDef: def
+            }
+        });
     },
     integrationMap: async (parent, args, context) => {
         let integrationMap = await context.connections.app.request('integration-map', {}).toArray()
