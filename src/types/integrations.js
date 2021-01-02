@@ -191,7 +191,7 @@ export const resolvers =  {
         return types.map((type) => {
             let def = {};
             type.astNode.fields.forEach((field) => {
-                def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : field.type.type.name.value;
+                def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : "list://" + field.type.type.name.value;
             })
             return {
                 name: type.name,

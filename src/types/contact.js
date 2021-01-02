@@ -5,14 +5,14 @@ export const typeDef = `
         name: String @input
         phoneNumber: String @input
         email: String @input
-        history: [ContactOrganisation]
+        history: [ContactOrganisation] @input
     }
 
     type ContactOrganisation @crud @configurable{
         id: ID
         name: String @input
         location: String @input
-        contacts: [Contact]
+        contacts: [Contact] @input
     }
 
 `
