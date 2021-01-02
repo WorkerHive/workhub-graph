@@ -70,7 +70,7 @@ export const typeDef = `
     cid: String
   }
 
-  type File {
+  type File @upload{
     id: ID!
     cid: String
     filename: String

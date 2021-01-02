@@ -843,15 +843,16 @@
   dependencies:
     "@types/node" "*"
 
-"@workerhive/flow-provider@^1.0.25":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.0.25.tgz#d5e616bc05946162ea3a942aa0ef2a29abb4d250"
-  integrity sha512-J78CrYD/t4sXIJEZeIZij2Gc9b8U6jKtAkl5Mbn9g3TH+GwkmGO63UPkwFi3aAhKU1UklePWnSIMJbMVd5TCgg==
+"@workerhive/flow-provider@^1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.0.26.tgz#bc65006151818bfb79b241a393924ff61d8b8316"
+  integrity sha512-WQoUrxnr9AH0AN8uL9KKdMDT5ZGsHHkFVwzUz7cxTMJndRIjVrmQSUWYjI5z2I7npxG93p3NRjVz9Vd+2CwIhQ==
   dependencies:
     "@graphql-tools/merge" "^6.2.6"
     "@graphql-tools/schema" "^7.1.2"
     apollo-server "^2.19.1"
     camel-case "^4.1.2"
+    file-extension "^4.0.5"
     lodash "^4.17.20"
 
 "@workerhive/mq@^1.0.0":
