@@ -192,7 +192,7 @@ export const resolvers =  {
             let def = {};
             console.log(type.astNode)
             type.astNode.fields.forEach((field) => {
-                def[field.name.value] = field.type;
+                def[field.name.value] = field.type.name.value;
             })
             return {
                 name: type.name,
