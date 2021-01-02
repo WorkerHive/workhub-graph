@@ -187,12 +187,11 @@ export const resolvers =  {
     adminTypes: async (parent, args, context, info) => {
         console.log(info)
         let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
-        console.log(types)
+
         return types.map((type) => {
             let def = {};
             type.astNode.fields.forEach((field) => {
-                console.log(field.type)
-                def[field.name.value] = field.type.value;
+                def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : field.type.type.name.value;
             })
             return {
                 name: type.name,
