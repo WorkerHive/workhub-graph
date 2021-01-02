@@ -68,7 +68,7 @@ export const typeDef = `
   }
 
   type File @upload{
-    id: ID!
+    id: ID
     cid: String
     filename: String
     conversion: Conversion
