@@ -193,7 +193,7 @@ export const resolvers =  {
         console.log(info)
         let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
 
-        let inputTypes = objectValues(info.schema._typeMap).filter((a) => types.map((x) => `${x.astNode.name}Input`).indexOf(a.name) > -1)
+        let inputTypes = objectValues(info.schema._typeMap).filter((a) => types.map((x) => `${x.toString()}Input`).indexOf(a.toString()) > -1)
 
         return {
             inputs: inputTypes.map((type) => {
