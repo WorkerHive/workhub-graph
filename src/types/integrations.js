@@ -209,7 +209,12 @@ export const resolvers =  {
             types: types.map((type) => {
                 let def = {};
                 type.astNode.fields.forEach((field) => {
-                    def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : "list://" + field.type.type.name.value;
+                    console.log(field)
+                    def[field.name.value] = {
+                        kind: field.type.kind,
+                        directives: field.directives.map((x) => x.toString()),
+                        type: (field.type.kind == "NamedType") ? field.type.name.value : field.type.type.name.value
+                    }
                 })
                 return {
                     name: type.name,
