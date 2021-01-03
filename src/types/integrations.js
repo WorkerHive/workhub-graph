@@ -190,7 +190,6 @@ export const resolvers =  {
         return links;
     },
     adminTypes: async (parent, args, context, info) => {
-        console.log(info)
         let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
 
         let inputTypes = objectValues(info.schema._typeMap).filter((a) => types.map((x) => `${x.toString()}Input`).indexOf(a.toString()) > -1)
@@ -209,7 +208,6 @@ export const resolvers =  {
             types: types.map((type) => {
                 let def = {};
                 type.astNode.fields.forEach((field) => {
-                    console.log(field)
                     def[field.name.value] = {
                         kind: field.type.kind,
                         directives: field.directives.map((x) => x.name.value),
