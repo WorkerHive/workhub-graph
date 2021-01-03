@@ -212,7 +212,7 @@ export const resolvers =  {
                     console.log(field)
                     def[field.name.value] = {
                         kind: field.type.kind,
-                        directives: field.directives.map((x) => x.toString()),
+                        directives: field.directives.map((x) => x.name.value),
                         type: (field.type.kind == "NamedType") ? field.type.name.value : field.type.type.name.value
                     }
                 })
