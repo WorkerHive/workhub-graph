@@ -10,9 +10,14 @@ extend type Query {
 
   connectionLayout(storeId: ID): [StoreBucket]
   bucketLayout(storeId: ID, bucketId: ID): [StoreBit]
-  adminTypes: [UserType]
+  adminTypes: Types
 
   typePermissions: [FlowInfo]
+}
+
+type Types{
+    types: [UserType]
+    inputs: [UserType]
 }
 
 type FlowInfo {
