@@ -188,16 +188,30 @@ export const resolvers =  {
         console.log(info)
         let types = findTypesWithDirective(info.schema._typeMap, 'configurable')
 
-        return types.map((type) => {
-            let def = {};
-            type.astNode.fields.forEach((field) => {
-                def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : "list://" + field.type.type.name.value;
+        let inputTypes = info.schema._typeMap.filter((a) => types.map((x) => `${x.name}Input`).indexOf(a.name) > -1)
+
+        return {
+            inputs: inputTypes.map((type) => {
+                let def = {};
+                type.astNode.fields.forEach((field) => {
+                    def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : "list://" + field.type.type.name.value;
+                })
+                return {
+                    name: type.name,
+                    typeDef: def
+                }
+            }),
+            types: types.map((type) => {
+                let def = {};
+                type.astNode.fields.forEach((field) => {
+                    def[field.name.value] = (field.type.kind == "NamedType") ? field.type.name.value : "list://" + field.type.type.name.value;
+                })
+                return {
+                    name: type.name,
+                    typeDef: def
+                }
             })
-            return {
-                name: type.name,
-                typeDef: def
-            }
-        });
+        }
     },
     integrationMap: async (parent, args, context) => {
         let integrationMap = await context.connections.app.request('integration-map', {}).toArray()
