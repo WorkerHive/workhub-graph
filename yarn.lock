@@ -843,10 +843,10 @@
   dependencies:
     "@types/node" "*"
 
-"@workerhive/flow-provider@^1.0.35":
-  version "1.0.35"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.0.35.tgz#f55e2f97e1e8babdf6841ca0069ca6f7830227d3"
-  integrity sha512-0bxyFrzIeH21UXZlQ4XvSO9Z1JjcYlVv/i2+M8qBk6OYnczcH+ZyIRb1UjueOueYdB53lXMaCDUCYG/N3jB6Pg==
+"@workerhive/flow-provider@^1.0.36":
+  version "1.0.36"
+  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.0.36.tgz#13ac1d229212cce087f6bd0c1d2806c764641766"
+  integrity sha512-FtGVn+GFBgaa7gq71qjCLEWBNTlgyIr9C4uyuQ9lKnykj2FIA0NAyHravaLi1Eb7o75B28tmscyrVAXkWnkRHw==
   dependencies:
     "@graphql-tools/merge" "^6.2.6"
     "@graphql-tools/schema" "^7.1.2"
