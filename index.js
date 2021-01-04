@@ -13,7 +13,9 @@
 //GraphQL imports : Apollo Backend
 import express from 'express';
 import greenlock from 'greenlock-express';
-import ApolloServerExpress, { makeExecutableSchema } from 'apollo-server-express'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+
+import ApolloServerExpress from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
 import path from 'path';
