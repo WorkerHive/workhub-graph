@@ -47,5 +47,5 @@ import {
 const { merge } = lodash;
 
 
-export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
+export const resolvers = merge(projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
 export const typeDefs = [Contacts, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
