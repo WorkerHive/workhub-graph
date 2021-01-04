@@ -42,7 +42,7 @@ const Hub = await HubFactory(flowProvider);
 flowProvider.applyInit((opts) => {
   const context = opts.context;
 
-  console.log(context.flow)
+  console.log(opts.schema.resolvers)
 
   opts.schema = makeExecutableSchema({
     ...opts.schema
