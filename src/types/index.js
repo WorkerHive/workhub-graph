@@ -48,15 +48,11 @@ const { merge } = lodash;
 
 const Query = `
 scalar Upload
-scalar JSON
-scalar JSONObject
 
 `
 
 const _resolvers = {
-  Upload: GraphQLUpload,
-  JSON: GraphQLJSON,
-  JSONObject: GraphQLJSONObject
+  Upload: GraphQLUpload
 }
 
 export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)

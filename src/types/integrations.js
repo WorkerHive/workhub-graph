@@ -33,7 +33,7 @@ type StoreBit {
 
 type UserType {
     name: String
-    typeDef: JSONObject
+    typeDef: JSON
 }
 
 type LinkTransform {
@@ -71,8 +71,8 @@ type MapNode {
     id: ID @input
     type: String @input
     position: MapPosition @input
-    data: JSONObject @input
-    style: JSONObject @input
+    data: JSON @input
+    style: JSON @input
 }
 
 type MapLink {
