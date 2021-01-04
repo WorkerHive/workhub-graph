@@ -46,14 +46,6 @@ import {
 
 const { merge } = lodash;
 
-const Query = `
-scalar Upload
-
-`
-
-const _resolvers = {
-  Upload: GraphQLUpload
-}
 
 export const resolvers = merge(_resolvers, projectResolvers, fileResolvers, userResolvers, integrationResolvers, calendarResolvers)
-export const typeDefs = [Query, Contacts, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
+export const typeDefs = [Contacts, Knowledge, Project, Team, Equipment, File, User, Integrations, Calendar].join('\n')
