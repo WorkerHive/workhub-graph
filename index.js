@@ -13,7 +13,7 @@
 //GraphQL imports : Apollo Backend
 import express from 'express';
 import greenlock from 'greenlock-express';
-import ApolloServerExpress from 'apollo-server-express'
+import ApolloServerExpress, { makeExecutableSchema } from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
 import path from 'path';
@@ -44,6 +44,10 @@ flowProvider.applyInit((opts) => {
 
   console.log(context.flow)
 
+  opts.schema = makeExecutableSchema({
+    ...opts.schema
+  })
+
   opts.context = ({req}) => {
     const token = req.headers.authorization || '';
     let user = null
@@ -62,27 +66,7 @@ flowProvider.applyInit((opts) => {
   }
   return new ApolloServer(opts);
 })
-  /*{
-  typeDefs,
-  resolvers,
-  context: ({req}) => {
-    //Handle context and user object
-    const token = req.headers.authorization || '';
-    let user = null
-    if(token){
-      user = jwt_decode(token)
-    }
-    return {
-      user,
-      connections:{
-        files: Hub.files,
-        flow: Hub.flow,
-        app: Hub.adapter,
-        pipeline: Hub.pipelineManager
-      }
-    }
-  }
-})*/
+
 
 flowProvider.server.applyMiddleware({app})
 
