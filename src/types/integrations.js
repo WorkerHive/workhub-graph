@@ -58,13 +58,9 @@ type IntegrationStore @crud {
     user: String @input
     pass: String @input
     dbName: String @input
-    type: BackLinkType @input
+    type: String @input
 }
 
-enum BackLinkType {
-    MSSQL
-    MONGO
-}
 
 type MapPosition {
     x: Int @input
