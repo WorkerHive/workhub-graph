@@ -83,7 +83,7 @@ type MapLink {
 }
 
 type IntegrationMap @crud{
-  id: ID
+  id: String
   nodes: [MapNode] @input
   links: [MapLink] @input
   stores: [IntegrationStore] @input
