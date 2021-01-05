@@ -6,7 +6,14 @@ extend type Query {
   connectionLayout(storeId: ID): [StoreBucket]
   bucketLayout(storeId: ID, bucketId: ID): [StoreBit]
   adminTypes: Types
+  storeTypes: [StoreType]
   typePermissions: [FlowInfo]
+}
+
+type StoreType {
+    id: ID @input
+    name: String 
+    description: String
 }
 
 type Types{
@@ -58,7 +65,7 @@ type IntegrationStore @crud {
     user: String @input
     pass: String @input
     dbName: String @input
-    type: String @input
+    type: StoreType @input
 }
 
 
@@ -106,6 +113,20 @@ const findTypesWithDirective = (typeMap, directive) => {
 
 export const resolvers =  {
   Query: {
+    storeTypes: (parent, args, context) => {
+        return [
+            {
+                id: 'mssql',
+                name: "MSSQL",
+                description: "Microsoft SQL Server"
+            },
+            {
+                id: 'mongo',
+                name: 'MongoDB',
+                description: 'MongoDB Server'
+            }
+        ]
+    },
     typePermissions: async (parent, args, context, info) => {
         console.log("TYPES", info)
       //  return context.connections.flow.typePermissions()
