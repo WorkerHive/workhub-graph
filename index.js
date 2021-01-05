@@ -36,7 +36,7 @@ const { ApolloServer } = ApolloServerExpress;
   const flowProvider = new FlowProvider(typeDefs, {}, resolvers)
 
 
-const Hub = await HubFactory(flowProvider);
+  const Hub = await HubFactory(flowProvider);
 
 
 
