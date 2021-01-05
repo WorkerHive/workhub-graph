@@ -38,7 +38,7 @@ export const resolvers =  {
     },
     Project: {
       files: async (parent, args, context) => {
-        return await context.connections.flow.get("Files", {id: {$in: (parent.files || []).map(x => mongodb.ObjectId(x))}})
+        return await context.connections.flow.get("File", {id: {$in: (parent.files || []).map(x => mongodb.ObjectId(x))}})
       }
     }
   }
