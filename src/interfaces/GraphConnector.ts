@@ -1,7 +1,9 @@
+import { EventEmitter } from "events";
 import { GraphQLSchema } from "graphql";
 import { schemaComposer, SchemaComposer } from "graphql-compose";
+import MyEmitter, { EventKey, EventReceiver } from "./Emitter";
 
-export interface GraphBase{
+export interface GraphBase extends MyEmitter<any>{
     schema: GraphQLSchema;
     getSchema() : GraphQLSchema;
 }
@@ -16,6 +18,7 @@ export interface GraphConnector{
     update(type: string, query: object, update: object) : Promise<object>; 
     delete(type: string, query: object) : Promise<boolean>;
 }
+
 
 export default class BaseConnector implements GraphConnector{
 

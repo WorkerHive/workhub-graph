@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
-type EventMap = Record<string, any>;
+export type EventMap = Record<string, any>;
 
-type EventKey<T extends EventMap> = string & keyof T;
-type EventReceiver<T> = (params: T) => void;
+export type EventKey<T extends EventMap> = string & keyof T;
+export type EventReceiver<T> = (params: T) => void;
 
 interface Emitter<T extends EventMap> {
   on<K extends EventKey<T>>

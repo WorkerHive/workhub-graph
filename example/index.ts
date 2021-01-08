@@ -32,6 +32,8 @@ let hiveGraph = new Graph(`
     ${typeDefs}
 `, connector, true)
 
+
+
 connector.stores.initializeAppStore({url: 'mongodb://localhost', dbName: 'test-db'})
 
 app.use(bodyParser.json())

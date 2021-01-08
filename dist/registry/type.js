@@ -152,7 +152,6 @@ var TypeRegistry = /** @class */ (function (_super) {
             fields: __assign({}, def)
         });
         this.emit('add', { name: name, def: def, inputType: inputType });
-        console.log(this.composer.types);
         return inputType;
     };
     TypeRegistry.prototype.registerRawType = function (name, def) {
@@ -208,7 +207,6 @@ var TypeRegistry = /** @class */ (function (_super) {
             directives_1.directiveTransforms.forEach(function (transformAction) {
                 outputSchema.merge(transformAction(_this.composer, _this));
             });
-            console.log(outputSchema.types);
             return outputSchema.buildSchema();
             //    return makeExecutableSchema({typeDefs:this.sdl, resolvers: this.resolvers});
         },

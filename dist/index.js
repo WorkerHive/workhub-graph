@@ -71,7 +71,6 @@ var HiveGraph = /** @class */ (function (_super) {
         _this.initialTypes = initialTypes;
         _this.hotReload = hotReload;
         _this.connector = connector;
-        _this.connector.setParent(_this);
         _this.typeRegistry = new type_1.default(initialTypes);
         _this.roleRegistry = new role_1.default();
         _this.schema = _this.getSchema();
@@ -81,6 +80,8 @@ var HiveGraph = /** @class */ (function (_super) {
         _this.typeRegistry.on('add_fields', _this.schemaUpdate);
         _this.typeRegistry.on('remove_fields', _this.schemaUpdate);
         _this.roleRegistry = new role_1.default();
+        console.log(_this.schema);
+        _this.connector.setParent(_this);
         _this.context = { connector: _this.connector };
         return _this;
     }

@@ -1,6 +1,6 @@
 {
   "name": "@workerhive/graph",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@graphql-tools/schema": "^7.1.2",
+    "@workerhive/flow-provider": "^1.2.3",
     "@workerhive/mq": "^1.0.0",
     "@workerhive/pipelines": "^1.0.0",
     "amqplib": "^0.6.0",

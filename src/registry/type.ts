@@ -139,7 +139,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         })
         this.emit('add', {name, def, inputType})
 
-        console.log(this.composer.types)
         return inputType
     }
 
@@ -207,7 +206,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         directiveTransforms.forEach(transformAction => {
             outputSchema.merge(transformAction(this.composer, this))
         })
-        console.log(outputSchema.types);
         return outputSchema.buildSchema()
         //    return makeExecutableSchema({typeDefs:this.sdl, resolvers: this.resolvers});
     }

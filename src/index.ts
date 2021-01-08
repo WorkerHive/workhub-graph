@@ -4,7 +4,7 @@ import TypeRegistry from "./registry/type";
 import EventEmitter from "./interfaces/Emitter"
 import { graphql, execute, GraphQLSchema, parse, Source } from "graphql";
 import { schemaComposer } from "graphql-compose";
-import GraphConnector, { GraphBase } from "./interfaces/GraphConnector";
+import { GraphConnector, GraphBase } from "./interfaces/GraphConnector";
 import GraphContext from "./interfaces/GraphContext";
 import { getTypesWithDirective } from "./utils";
 import LoggerConnector from "./connectors/logger";
@@ -32,13 +32,13 @@ export default class HiveGraph extends EventEmitter<any> implements GraphBase {
     public typeRegistry: TypeRegistry;
     private roleRegistry: RoleRegistry;
 
-    constructor(initialTypes: string = ``, connector: BaseConnector, hotReload: boolean = false){
+    constructor(initialTypes: string = ``, connector: GraphConnector, hotReload: boolean = false){
         super();
         this.initialTypes = initialTypes
         this.hotReload = hotReload
 
         this.connector = connector;
-        this.connector.setParent(this);
+
 
         this.typeRegistry = new TypeRegistry(initialTypes);
         this.roleRegistry = new RoleRegistry()
@@ -53,6 +53,9 @@ export default class HiveGraph extends EventEmitter<any> implements GraphBase {
         this.typeRegistry.on('remove_fields', this.schemaUpdate)
 
         this.roleRegistry = new RoleRegistry()
+        console.log(this.schema)
+        this.connector.setParent(this);
+        
         this.context = {connector: this.connector}
 
     }
