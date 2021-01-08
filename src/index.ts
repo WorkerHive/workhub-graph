@@ -32,7 +32,7 @@ export default class HiveGraph extends EventEmitter<any> implements GraphBase {
     public typeRegistry: TypeRegistry;
     private roleRegistry: RoleRegistry;
 
-    constructor(initialTypes: string = ``, connector: GraphConnector, hotReload: boolean = false){
+    constructor(initialTypes: string = ``, connector: BaseConnector, hotReload: boolean = false){
         super();
         this.initialTypes = initialTypes
         this.hotReload = hotReload

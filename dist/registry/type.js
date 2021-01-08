@@ -74,7 +74,7 @@ var TypeRegistry = /** @class */ (function (_super) {
                 },
                 type: 'MutableType',
                 resolve: function (parent, args, context) {
-                    return _this.registerType(args.name, args.def);
+                    return _this.registerRawType(args.name, args.def);
                 }
             },
             updateMutableType: {
@@ -154,6 +154,16 @@ var TypeRegistry = /** @class */ (function (_super) {
         this.emit('add', { name: name, def: def, inputType: inputType });
         console.log(this.composer.types);
         return inputType;
+    };
+    TypeRegistry.prototype.registerRawType = function (name, def) {
+        var fields = [];
+        for (var k in def) {
+            fields.push({ name: k, value: def[k] });
+        }
+        var typeDef = "\n            type " + name + " {\n                " + fields.map(function (x) { return x.name + ": " + x.value; }).join("\n") + "\n            }\n        ";
+        var obj = this.composer.createObjectTC(typeDef);
+        this.emit('add', { typeDef: typeDef });
+        return new Type(obj);
     };
     TypeRegistry.prototype.registerType = function (name, def) {
         var _a;

@@ -34,4 +34,46 @@ function getTypesWithFieldDirective(composer, name) {
     return types;
 }
 exports.getTypesWithFieldDirective = getTypesWithFieldDirective;
+exports.isNativeType = function (type) {
+    switch (type) {
+        case "JSON":
+            return "JSON";
+        case "Date":
+            return "Date";
+        case "ID":
+            return "ID";
+        case "String":
+            return "String";
+        case "Int":
+            return "Int";
+        case "Float":
+            return "Float";
+        case "Boolean":
+            return "Boolean";
+        default:
+            return null;
+    }
+};
+exports.convertInput = function (type) {
+    var outputFields = {};
+    var newType;
+    if (!type.match(/\[(.*?)\]/)) {
+        if (exports.isNativeType(type) != null) {
+            newType = type;
+        }
+        else {
+            newType = type + "Input";
+        }
+    }
+    else {
+        var arrType = type.match(/\[(.*?)\]/)[1];
+        if (exports.isNativeType(arrType) != null) {
+            newType = "[" + arrType + "]";
+        }
+        else {
+            newType = "[" + arrType + "Input]";
+        }
+    }
+    return newType;
+};
 //# sourceMappingURL=index.js.map

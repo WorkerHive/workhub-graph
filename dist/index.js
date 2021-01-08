@@ -57,15 +57,21 @@ var type_1 = __importDefault(require("./registry/type"));
 var Emitter_1 = __importDefault(require("./interfaces/Emitter"));
 var graphql_1 = require("graphql");
 var graphql_compose_1 = require("graphql-compose");
+var logger_1 = __importDefault(require("./connectors/logger"));
+exports.LoggerConnector = logger_1.default;
+var GraphConnector_1 = __importDefault(require("./interfaces/GraphConnector"));
+exports.BaseConnector = GraphConnector_1.default;
 var HiveGraph = /** @class */ (function (_super) {
     __extends(HiveGraph, _super);
-    function HiveGraph(initialTypes, hotReload) {
+    function HiveGraph(initialTypes, connector, hotReload) {
         if (initialTypes === void 0) { initialTypes = ""; }
         if (hotReload === void 0) { hotReload = false; }
         var _this = _super.call(this) || this;
         _this.transports = [];
         _this.initialTypes = initialTypes;
         _this.hotReload = hotReload;
+        _this.connector = connector;
+        _this.connector.setParent(_this);
         _this.typeRegistry = new type_1.default(initialTypes);
         _this.roleRegistry = new role_1.default();
         _this.schema = _this.getSchema();

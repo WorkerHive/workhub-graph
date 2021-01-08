@@ -136,6 +136,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/bson@*":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-4.0.3.tgz#30889d2ffde6262abbe38659364c631454999fbf"
+  integrity sha512-mVRvYnTOZJz3ccpxhr3wgxVmSeiYinW+zlzQz3SXWaJmD1DuL05Jeq7nKw3SnbKmbleW5qrLG5vdyWe/A9sXhw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.34"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.34.tgz#170a40223a6d666006d93ca128af2beb1d9b1901"
@@ -257,6 +264,14 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
 
+"@types/mongodb@^3.6.3":
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.6.3.tgz#5655af409d9e32d5d5ae9a653abf3e5f9c83eb7a"
+  integrity sha512-6YNqGP1hk5bjUFaim+QoFFuI61WjHiHE1BNeB41TA00Xd2K7zG4lcWyLLq/XtIp36uMavvS5hoAUJ+1u/GcX2Q==
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
+
 "@types/node-fetch@2.5.7":
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.7.tgz#20a2afffa882ab04d44ca786449a276f9f6bbf3c"
@@ -300,14 +315,14 @@
   dependencies:
     "@types/node" "*"
 
-"@workerhive/flow-provider@^1.1.13":
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.1.13.tgz#94db3aefcc6d27efa573aeab8933ca6797fe3cec"
-  integrity sha512-Thk45L59+mNUFFAr1TW9M0bMz8OJPHQyyUGsfWziqhxb7cv52WtrKZbNzsOq3aFS2RkNS6mAVPmu0NtrURMwjw==
+"@workerhive/flow-provider@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.1.tgz#ab0c58e8dd1efd6aa1b5c90ab5943c9b2e1c0577"
+  integrity sha512-tYgnliGEukkPEBR0oxn/QCzneeO2MbZqsvFTpY5IFL0XL1VttpaEFN/jatQNMogzXVhthezVxnzRrOzsxk1oWQ==
   dependencies:
     "@graphql-tools/merge" "^6.2.6"
     "@graphql-tools/schema" "^7.1.2"
-    apollo-server "^2.19.1"
+    "@types/mongodb" "^3.6.3"
     camel-case "^4.1.2"
     file-extension "^4.0.5"
     graphql-compose "^7.23.0"

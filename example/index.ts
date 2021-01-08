@@ -7,15 +7,13 @@ import { set } from 'lodash';
 import { graphqlHTTP } from 'express-graphql'; // ES6
 import bodyParser from 'body-parser'
 
-import { FlowProvider } from '@workerhive/flow-provider'
+import { FlowConnector } from '@workerhive/flow-provider'
 
 const app = express();
 
 let logger = new LoggerConnector();
 
-let connector = new FlowProvider(typeDefs, {}, {})
-
-connector.stores.initializeAppStore();
+let connector = new FlowConnector({}, {})
 
 let hiveGraph = new Graph(`
 
@@ -32,7 +30,9 @@ let hiveGraph = new Graph(`
     }
 
     ${typeDefs}
-`, logger, true)
+`, connector, true)
+
+connector.stores.initializeAppStore({url: 'mongodb://localhost', dbName: 'test-db'})
 
 app.use(bodyParser.json())
 

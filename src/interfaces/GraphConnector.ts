@@ -8,8 +8,6 @@ export interface GraphBase{
 
 export interface GraphConnector{
 
-    parent: GraphBase; 
-
     setParent(parent: GraphBase): void;
 
     create(type : string, newObject: any) : Promise<object>;
@@ -20,22 +18,18 @@ export interface GraphConnector{
 }
 
 export default class BaseConnector implements GraphConnector{
-    parent: GraphBase;
+
+    private parent: GraphBase;
+
+    private schemaFactory: SchemaComposer<any> = schemaComposer;
 
     constructor(){
 
     }
 
-    get schemaComposer(): SchemaComposer<any>{
-        return schemaComposer.merge(this.schema);
-    }
-
-    get schema() : GraphQLSchema{
-        return this.parent.schema
-    }
-
     setParent(parent: GraphBase): void {
         this.parent = parent;
+        this.schemaFactory.merge(this.parent.schema)
     }
 
     create(type: string, newObject: any): Promise<object> {
