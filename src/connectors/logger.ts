@@ -1,25 +1,25 @@
 import GraphConnector from '../interfaces/GraphConnector'
 
 export default class LoggerConnector implements GraphConnector {
-    create(type: string, newObject: any): object {
+    async create(type: string, newObject: any) {
         console.info(`=> Create: ${type}`, newObject)
         return {};
     }
-    read(type: string, query: object): object {
+    async read(type: string, query: object) {
         console.info(`=> Read ${type}`, query)
         return {};
     }
-    readAll(type: string): object[] {
+    async readAll(type: string){
         console.info(`=> Read All ${type}`)
         return [];
 
     }
-    update(type: string, query: object, update: object): object {
+    async update(type: string, query: object, update: object) {
         console.info(`=> Update ${type}`, query, update)
         return {};
     }
 
-    delete(type: string, query: object): boolean {
+    async delete(type: string, query: object) {
         console.info(`=> Delete ${type}`, query)
         return false;
     }
