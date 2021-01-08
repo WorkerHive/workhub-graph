@@ -19,9 +19,9 @@ export interface GraphConnector{
 
 export default class BaseConnector implements GraphConnector{
 
-    private parent: GraphBase;
+    protected parent: GraphBase;
 
-    private schemaFactory: SchemaComposer<any> = schemaComposer;
+    protected schemaFactory: SchemaComposer<any> = schemaComposer;
 
     constructor(){
 
