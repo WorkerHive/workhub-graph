@@ -74,7 +74,7 @@ export default class HiveGraph extends BaseGraph{
     schemaUpdate(args){
         console.log("SCHEMA UPDATE")
         this.schema = this.getSchema();
-        this.emit('schema_update', this.schema)
+        this.emit('schema_update', this.typeRegistry.sdl)
     }
 
     async executeRequest(query, variables){
