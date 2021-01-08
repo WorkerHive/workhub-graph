@@ -7,9 +7,15 @@ import { set } from 'lodash';
 import { graphqlHTTP } from 'express-graphql'; // ES6
 import bodyParser from 'body-parser'
 
+import { FlowProvider } from '@workerhive/flow-provider'
+
 const app = express();
 
 let logger = new LoggerConnector();
+
+let connector = new FlowProvider(typeDefs, {}, {})
+
+connector.stores.initializeAppStore();
 
 let hiveGraph = new Graph(`
 

@@ -1,6 +1,7 @@
+import BaseConnector from '../interfaces/GraphConnector';
 import GraphConnector from '../interfaces/GraphConnector'
 
-export default class LoggerConnector implements GraphConnector {
+export default class LoggerConnector extends BaseConnector {
     async create(type: string, newObject: any) {
         console.info(`=> Create: ${type}`, newObject)
         return {};

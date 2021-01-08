@@ -4,17 +4,18 @@ import TypeRegistry from "./registry/type";
 import EventEmitter from "./interfaces/Emitter"
 import { graphql, execute, GraphQLSchema, parse, Source } from "graphql";
 import { schemaComposer } from "graphql-compose";
-import GraphConnector from "./interfaces/GraphConnector";
+import GraphConnector, { GraphBase } from "./interfaces/GraphConnector";
 import GraphContext from "./interfaces/GraphContext";
 import { getTypesWithDirective } from "./utils";
 import LoggerConnector from "./connectors/logger";
+import BaseConnector from "./interfaces/GraphConnector";
 
 export {
-    GraphConnector,
+    BaseConnector,
     LoggerConnector
 }
 
-export default class HiveGraph extends EventEmitter<any>{
+export default class HiveGraph extends EventEmitter<any> implements GraphBase {
 
     private initialTypes : string;
     private hotReload: boolean;
@@ -34,7 +35,9 @@ export default class HiveGraph extends EventEmitter<any>{
         super();
         this.initialTypes = initialTypes
         this.hotReload = hotReload
+
         this.connector = connector;
+        this.connector.setParent(this);
 
         this.typeRegistry = new TypeRegistry(initialTypes);
         this.roleRegistry = new RoleRegistry()
