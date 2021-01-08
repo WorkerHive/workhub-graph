@@ -11,6 +11,7 @@ import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
 
 export {
+    GraphContext,
     BaseGraph,
     BaseConnector,
     LoggerConnector
@@ -72,8 +73,7 @@ export default class HiveGraph extends BaseGraph{
     }
 
     schemaUpdate(args){
-        console.log("SCHEMA UPDATE")
-        this.schema = this.getSchema();
+         this.schema = this.getSchema();
         this.emit('schema_update', this.typeRegistry.sdl)
     }
 

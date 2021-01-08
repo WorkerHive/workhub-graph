@@ -1,11 +1,8 @@
-import Graph, { LoggerConnector } from '..' 
+import Graph, { LoggerConnector } from '@workerhive/graph' 
 import { typeDefs } from './types';
 import express from 'express';
-import { buildSchema, graphql } from 'graphql';
-import { ApolloServer, makeExecutableSchema } from 'apollo-server';
-import { set } from 'lodash';
-import { graphqlHTTP } from 'express-graphql'; // ES6
 import bodyParser from 'body-parser'
+import cors from 'cors';
 
 import { FlowConnector } from '@workerhive/flow-provider'
 
@@ -37,6 +34,7 @@ let hiveGraph = new Graph(`
 connector.stores.initializeAppStore({url: 'mongodb://localhost', dbName: 'test-db'})
 
 app.use(bodyParser.json())
+app.use(cors())
 
 hiveGraph.addTransport((conf) => {
 

@@ -2,7 +2,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { buildSchema, BuildSchemaOptions, DirectiveLocation, GraphQLBoolean, GraphQLDirective, GraphQLInputObjectType, GraphQLInputType, GraphQLSchema } from 'graphql';
 import { SchemaComposer, ObjectTypeComposer, schemaComposer, InputTypeComposer } from 'graphql-compose';
 import EventEmitter from '../interfaces/Emitter';
-import { objectValues } from '../utils';
+import { getTypesWithDirective, objectValues } from '../utils';
 
 import { directives, directiveTransforms } from '../directives';
 
@@ -41,7 +41,7 @@ export default class TypeRegistry extends EventEmitter<any>{
             mutableTypes: {
                 type: '[MutableType]',
                 resolve: (parent, args, context) => {
-                    return this.types;
+                    return getTypesWithDirective(this.composer, "configurable") 
                 }
             },
             mutableInputTypes: {
@@ -243,7 +243,17 @@ export class Type {
     }
 
     get def(){
-        return this.sdl;
+        let fields : Record<any, any> = [];
+
+        if(this.object instanceof InputTypeComposer){
+            fields = (this.object as InputTypeComposer).getFields()
+        }else if(this.object instanceof ObjectTypeComposer){
+            fields = this.object.getType().getFields(); 
+        }
+        return objectValues(fields).map((x) => ({
+            name: x.name, 
+            type: x.type
+        }));
         /*
         this.object.getFields()
         return objectValues(this.object.getType().getFields() || this.object.getFields()).map((x) => ({
