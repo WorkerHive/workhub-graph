@@ -1,6 +1,7 @@
 node_modules/
 greenlock.d/
 ydata/
+dist/
 .greenlockrc
 lib/file-store/test-repo/
 lib/file-store/workhub/
