@@ -1,4 +1,4 @@
-import Graph, { LoggerConnector } from '../src/index' 
+import Graph, { LoggerConnector } from '..' 
 import { typeDefs } from './types';
 import express from 'express';
 import { buildSchema, graphql } from 'graphql';

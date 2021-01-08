@@ -4,19 +4,19 @@ import TypeRegistry from "./registry/type";
 import EventEmitter from "./interfaces/Emitter"
 import { graphql, execute, GraphQLSchema, parse, Source } from "graphql";
 import { schemaComposer } from "graphql-compose";
-import { GraphConnector, GraphBase } from "./interfaces/GraphConnector";
+import { GraphConnector, GraphBase, BaseGraph } from "./interfaces/GraphConnector";
 import GraphContext from "./interfaces/GraphContext";
 import { getTypesWithDirective } from "./utils";
 import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
 
 export {
-    GraphBase,
+    BaseGraph,
     BaseConnector,
     LoggerConnector
 }
 
-export default class HiveGraph extends EventEmitter<any> implements GraphBase {
+export default class HiveGraph extends BaseGraph{
 
     private initialTypes : string;
     private hotReload: boolean;
@@ -72,6 +72,7 @@ export default class HiveGraph extends EventEmitter<any> implements GraphBase {
     }
 
     schemaUpdate(args){
+        console.log("SCHEMA UPDATE")
         this.schema = this.getSchema();
         this.emit('schema_update', this.schema)
     }

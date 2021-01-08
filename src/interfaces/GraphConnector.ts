@@ -3,7 +3,7 @@ import { GraphQLSchema } from "graphql";
 import { schemaComposer, SchemaComposer } from "graphql-compose";
 import MyEmitter, { EventKey, EventReceiver } from "./Emitter";
 
-export interface GraphBase extends MyEmitter<any>{
+export interface GraphBase{
     schema: GraphQLSchema;
     getSchema() : GraphQLSchema;
 }
@@ -19,10 +19,24 @@ export interface GraphConnector{
     delete(type: string, query: object) : Promise<boolean>;
 }
 
+export class BaseGraph extends EventEmitter implements GraphBase {
+
+    schema: GraphQLSchema;
+    
+    constructor(){
+        super();
+    }
+
+    getSchema(): GraphQLSchema {
+        return this.schema;
+    }
+
+}
+
 
 export default class BaseConnector implements GraphConnector{
 
-    protected parent: GraphBase;
+    protected parent: BaseGraph;
 
     protected schemaFactory: SchemaComposer<any> = schemaComposer;
 
@@ -30,9 +44,10 @@ export default class BaseConnector implements GraphConnector{
 
     }
 
-    setParent(parent: GraphBase): void {
+    setParent(parent: BaseGraph): void {
         this.parent = parent;
         this.parent.on('schema_update', (schema) => {
+            console.log("Schema update")
             this.schemaFactory.merge(schema);
         })
         //this.schemaFactory.merge(this.parent.schema)
