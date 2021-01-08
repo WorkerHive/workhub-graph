@@ -11,6 +11,7 @@ import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
 
 export {
+    GraphBase,
     BaseConnector,
     LoggerConnector
 }
