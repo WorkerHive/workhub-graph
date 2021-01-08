@@ -32,7 +32,10 @@ export default class BaseConnector implements GraphConnector{
 
     setParent(parent: GraphBase): void {
         this.parent = parent;
-        this.schemaFactory.merge(this.parent.schema)
+        this.parent.on('schema_update', (schema) => {
+            this.schemaFactory.merge(schema);
+        })
+        //this.schemaFactory.merge(this.parent.schema)
     }
 
     create(type: string, newObject: any): Promise<object> {
