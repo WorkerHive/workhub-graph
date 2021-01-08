@@ -97,7 +97,6 @@ export const resolvers = {
       },
       installConverter: (parent, {converterId}, context) => {
         let pipelines = context.connections.pipeline.getPipelines();
-        console.log(pipelines)
         pipelines.filter((a) => a.id == converterId).map((x) => x.pullSteps())
         context.connections.app.add('converter', {installed: true, converter: converterId})
       },
@@ -138,8 +137,7 @@ export const resolvers = {
           })
         },*/
         convertFile: async (parent, {fileId, targetFormat}, context) => {
-          let files = await context.connections.app.get('files', {_id: mongodb.ObjectId(fileId)}).toArray()
-          console.log("Convert", files, targetFormat, fileId)
+          let files = await context.connections.app.get('files', {_id: fileId}).toArray()
           if(files && files.length > 0){
 
             let job_id = uuidv4()

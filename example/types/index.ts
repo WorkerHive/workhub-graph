@@ -1,48 +1,45 @@
 import lodash from 'lodash';
-import GraphQLJSON from 'graphql-type-json';
-import Server from 'apollo-server';
-const {GraphQLUpload } = Server;
-const { GraphQLJSONObject } = GraphQLJSON
+
 import { 
   typeDef as Project,
   resolvers as projectResolvers
-} from './project.js';
+} from './project';
 
 import {
   typeDef as Team,
-} from './team.js';
+} from './team';
 
 import {
   typeDef as Equipment,
-} from './equipment.js'
+} from './equipment'
 
 import {
   typeDef as Calendar,
   resolvers as calendarResolvers
-} from './calendar.js';
+} from './calendar';
 
 import {
   typeDef as File,
   resolvers as fileResolvers
-} from './file.js'
+} from './file'
 
 import {
   typeDef as User,
   resolvers as userResolvers
-} from './user.js';
+} from './user';
 
 import {
   typeDef as Knowledge
-} from './knowledge.js'
+} from './knowledge'
 
 import {
   typeDef as Integrations,
   resolvers as integrationResolvers
-} from './integrations.js';
+} from './integrations';
 
 import {
   typeDef as Contacts
-} from './contact.js'
+} from './contact'
 
 const { merge } = lodash;
 

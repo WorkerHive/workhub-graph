@@ -12,14 +12,11 @@
 
 //GraphQL imports : Apollo Backend
 import express from 'express';
-import greenlock from 'greenlock-express';
 import { makeExecutableSchema } from '@graphql-tools/schema'
 
 import ApolloServerExpress from 'apollo-server-express'
 import { resolvers, typeDefs } from './src/types/index.js';
 
-import path from 'path';
-import YJS from './lib/yjs/server.js';
 import HubFactory from './lib/hub/index.js';
 
 import FP from '@workerhive/flow-provider';
@@ -29,7 +26,6 @@ import jwt_decode from 'jwt-decode'
 const { FlowProvider } = FP;
 const { ApolloServer } = ApolloServerExpress;
 
-
 (async () => {
   const app = express()
 
@@ -37,7 +33,6 @@ const { ApolloServer } = ApolloServerExpress;
 
 
   const Hub = await HubFactory(flowProvider);
-
 
 
 //Setup GraphQL Server
@@ -70,16 +65,8 @@ flowProvider.applyInit((opts) => {
 })
 
 
-flowProvider.server.applyMiddleware({app})
-
-app.use(express.static('./workhub-web/build'))
-
-app.get(['/', '/dashboard*'], (req, res) => {
-  res.sendFile('/graph/workhub-graph/workhub-web/build/index.html')
-})
-
 //Start GraphQL Server
-greenlock.init({
+/*greenlock.init({
   packageRoot: path.resolve(),
   configDir: './greenlock.d',
   maintainerEmail: "professional.balbatross@gmail.com",
@@ -89,4 +76,30 @@ greenlock.init({
   const yjs = YJS();
 }).serve(app);
 
-})()
+})()*/
+
+
+/*
+
+  [UI]
+  [GraphQL, YJS, LibP2P]
+  [Flow, Integrations]
+  [Base, IPFS]
+  Workhub GraphQL Server
+
+  new WorkhubGraph(initialTypeDefs : TypeDefs, hot : Boolean)
+
+  - types
+  - roles
+  - flow
+
+  reload(types, flow)
+
+
+  QueenB
+
+  - childrenTypes
+  - born: Time
+  - lifetime: length
+  - 
+*/

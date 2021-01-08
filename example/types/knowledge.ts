@@ -1,6 +1,6 @@
-import apollo from 'apollo-server';
-import mongodb from 'mongodb';
-const { gql } = apollo;
+
+
+
 
 export const typeDef = `
   type Knowledge @crud @configurable {

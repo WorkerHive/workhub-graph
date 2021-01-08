@@ -40,7 +40,7 @@ type CalendarBooking{
 export const resolvers = {
 Query: {
   calendar: async (parent, {startRange, endRange}, context) => {
-    let q = {}
+    let q : any = {}
     if(startRange){
         q.startTime = {$gte: startRange}
     }
@@ -55,7 +55,6 @@ Query: {
 },
 Mutation: {
   addBooking: async (parent, {time, projectId, booking}, context) => {
-    console.log("ADD BOOKING", time, projectId, booking)
     let _booking = {
         ...time,
         project: projectId,
@@ -75,7 +74,6 @@ CalendarBooking: {
     }
   },
   project: async (parent, args, context) => {
-    console.log("PROJECT", parent)
     let project = await context.connections.flow.request("Projects", {id: parent.project})
     return project.length > 0 && project[0];
   }

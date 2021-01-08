@@ -75,9 +75,9 @@ export const resolvers = {
   Mutation: {
     login: async (parent, {username, password}, context) => {
         let pwd = crypto.createHash('sha256').update(password).digest('hex')
-        console.log(username, pwd, context.connections.flow)
+
         let user = await context.connections.flow.get('TeamMember', {username: username, password: pwd})
-        console.log("USer attempt", user)
+        
         if(user){
             return {
               token: jwt.sign({
@@ -96,7 +96,7 @@ export const resolvers = {
     },
     signup: async (parent, {user}, context) => {
       if(context.user.type == "signup"){
-        let accounts = await context.connections.app.request('users', {_id: mongodb.ObjectId(context.user.userId), status: "pending"}).toArray()
+        let accounts = await context.connections.app.request('users', {_id: context.user.userId, status: "pending"}).toArray()
 
         if(accounts.length > 0){
           //Update account details

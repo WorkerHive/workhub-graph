@@ -6,14 +6,7 @@ extend type Query {
   connectionLayout(storeId: ID): [StoreBucket]
   bucketLayout(storeId: ID, bucketId: ID): [StoreBit]
   adminTypes: Types
-  storeTypes: [StoreType]
   typePermissions: [FlowInfo]
-}
-
-type StoreType {
-    id: ID @input
-    name: String 
-    description: String
 }
 
 type Types{
@@ -49,26 +42,6 @@ type LinkTransform {
 }
 
 
-type IntegrationAdapter {
-    id: ID
-    store: IntegrationStore @input
-    bucket: String @input
-    provides: [LinkTransform] @input
-}
-
-type IntegrationStore @crud {
-    id: ID
-    active: Boolean @input
-    status: String 
-    name: String @input
-    host: String @input
-    user: String @input
-    pass: String @input
-    dbName: String @input
-    type: StoreType @input
-}
-
-
 type MapPosition {
     x: Int @input
     y: Int @input
@@ -89,13 +62,7 @@ type MapLink {
     animated: Boolean @input
 }
 
-type IntegrationMap @crud{
-  id: String
-  nodes: [MapNode] @input
-  links: [MapLink] @input
-  stores: [IntegrationStore] @input
-  adapters: [IntegrationAdapter] @input
-}
+
 `
 function objectValues(obj) {
     return Object.keys(obj).map(function (i) { return obj[i]; });
@@ -113,22 +80,7 @@ const findTypesWithDirective = (typeMap, directive) => {
 
 export const resolvers =  {
   Query: {
-    storeTypes: (parent, args, context) => {
-        return [
-            {
-                id: 'mssql',
-                name: "MSSQL",
-                description: "Microsoft SQL Server"
-            },
-            {
-                id: 'mongo',
-                name: 'MongoDB',
-                description: 'MongoDB Server'
-            }
-        ]
-    },
     typePermissions: async (parent, args, context, info) => {
-        console.log("TYPES", info)
       //  return context.connections.flow.typePermissions()
     },
     adminTypes: async (parent, args, context, info) => {

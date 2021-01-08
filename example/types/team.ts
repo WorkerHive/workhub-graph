@@ -1,10 +1,5 @@
 export const typeDef = `
 
-  type Role {
-    id: ID!
-    name: String
-  }
-
   type TeamMember @crud @configurable {
     "A member of your WorkHub Team"
     id: ID
