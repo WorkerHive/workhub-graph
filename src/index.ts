@@ -33,7 +33,7 @@ export default class HiveGraph extends BaseGraph{
     public typeRegistry: TypeRegistry;
     private roleRegistry: RoleRegistry;
 
-    constructor(initialTypes: string = ``, connector: GraphConnector, hotReload: boolean = false){
+    constructor(initialTypes: string = ``, resolvers: any, connector: GraphConnector, hotReload: boolean = false){
         super();
         this.initialTypes = initialTypes
         this.hotReload = hotReload
@@ -41,7 +41,7 @@ export default class HiveGraph extends BaseGraph{
         this.connector = connector;
 
 
-        this.typeRegistry = new TypeRegistry(initialTypes);
+        this.typeRegistry = new TypeRegistry(initialTypes, resolvers);
         this.roleRegistry = new RoleRegistry()
 
         this.schema = this.getSchema()
@@ -77,9 +77,10 @@ export default class HiveGraph extends BaseGraph{
         this.emit('schema_update', this.typeRegistry.sdl)
     }
 
-    async executeRequest(query, variables){
+    async executeRequest(query, variables, operationName){
         let result =  await execute({
             schema: this.schema,
+            operationName: operationName,
             document: parse(new Source(query)),
             rootValue: this.typeRegistry.resolvers, 
             contextValue: this.context,

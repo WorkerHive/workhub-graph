@@ -9,15 +9,18 @@ import { directives, directiveTransforms } from '../directives';
 export default class TypeRegistry extends EventEmitter<any>{
     
     private _sdl : string;
+    private _resolvers: any;
+
     public composer : SchemaComposer<any> = schemaComposer;
     
-    constructor(typeSDL: string){
+    constructor(typeSDL: string, resolvers: any){
         super();
         this._sdl = typeSDL;
+        this._resolvers = resolvers;
 
         this.setupMutable();
         this.composer.addTypeDefs(typeSDL)
-
+        
         this.setupDirectives();
         //Directive types;
     }
@@ -198,7 +201,14 @@ export default class TypeRegistry extends EventEmitter<any>{
     }
 
     get resolvers(){
-        return this.composer.getResolveMethods();
+        
+        
+//        this.composer.addResolveMethods(this._resolvers);
+
+        let resolvers = this.composer.getResolveMethods();
+        console.log("Dispatching resolvers", resolvers);
+        return merge(this._resolvers, resolvers);
+        //return r;
     }
 
     get schema() : GraphQLSchema{
@@ -206,6 +216,9 @@ export default class TypeRegistry extends EventEmitter<any>{
         directiveTransforms.forEach(transformAction => {
             outputSchema.merge(transformAction(this.composer, this))
         })
+
+        if(this._resolvers) outputSchema.addResolveMethods(this._resolvers)
+
         return outputSchema.buildSchema()
         //    return makeExecutableSchema({typeDefs:this.sdl, resolvers: this.resolvers});
     }
@@ -222,6 +235,7 @@ export default class TypeRegistry extends EventEmitter<any>{
 }
 
 import { camelCase } from 'camel-case'; //For future reference this is what being a hippocrit (fuck spelling) is all about
+import { merge } from 'lodash';
 
 export class Type {
 

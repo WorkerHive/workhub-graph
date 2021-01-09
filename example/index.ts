@@ -1,4 +1,4 @@
-import Graph, { LoggerConnector } from '@workerhive/graph' 
+import Graph, { LoggerConnector } from '../dist' 
 import { typeDefs } from './types';
 import express from 'express';
 import bodyParser from 'body-parser'
@@ -12,6 +12,7 @@ let logger = new LoggerConnector();
 
 let connector = new FlowConnector({}, {})
 
+let { types, resolvers } = connector.getConfig();
 let hiveGraph = new Graph(`
 
     type Query {
@@ -27,7 +28,9 @@ let hiveGraph = new Graph(`
     }
 
     ${typeDefs}
-`, connector, true)
+
+    ${types}
+`, resolvers, connector, true)
 
 
 
@@ -41,9 +44,10 @@ hiveGraph.addTransport((conf) => {
     app.post('/graphql', (req, res) => {
         let query = req.body.query;
         let variables = req.body.variables || {};
+        let operationName = req.body.operationName || null;
         if(variables && typeof(variables) !== 'object') variables = JSON.parse(variables)
 
-        hiveGraph.executeRequest(query, variables).then((r) => res.send(r))
+        hiveGraph.executeRequest(query, variables, operationName).then((r) => res.send(r))
     })
 
     app.get('/graphql', (req, res) => {
