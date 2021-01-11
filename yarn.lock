@@ -69,10 +69,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.20.tgz#f7974863edd21d1f8a494a73e8e2b3658615c340"
   integrity sha512-Y93R97Ouif9JEOWPIUyU+eyIdyRqQR0I8Ez1dzku4hDx34NWh4HbtIc3WNzwB1Y9ULvNGeu5B8h8bVL5cAk4/A==
 
-"@workerhive/flow-provider@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.3.tgz#fcc204f427d67f25113dac3c8c5693c1f7882951"
-  integrity sha512-Tj+1nqOmyObqpHmrK/ceYV7n1A/8McbkalIAoCgLcxwhr+s6X/PLH+xObtWG4tibwbEGTY+4R7t49co1aM+4Jw==
+"@workerhive/flow-provider@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.9.tgz#bbe919f1e399980a8c19ed7ab5cbc5608c280cbd"
+  integrity sha512-BHMQA73GADHGy80NUjjvHclS9+QEj1zT4CWvD4LA3VQpHmnj2oGEu3sKfbC/n/y7MsjBka+SNijAdKEjcurb2g==
   dependencies:
     "@graphql-tools/merge" "^6.2.6"
     "@graphql-tools/schema" "^7.1.2"

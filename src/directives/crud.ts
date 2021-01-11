@@ -46,7 +46,7 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         ...args,
                     },
                     resolve: async (parent, args, context : GraphContext) => {
-                        return await context.connector.update(item.name, args['id'], args[item.camelName])
+                        return await context.connector.update(item.name, {id: args['id']}, args[item.camelName])
                     }
                 },
                 [deleteKey]:{
@@ -55,7 +55,7 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         id: 'ID'
                     },
                     resolve: async (parent, args, context : GraphContext) => {
-                        return await context.connector.delete(item.name, args['id'])
+                        return await context.connector.delete(item.name, {id: args['id']})
                     }
                 }
             })
@@ -67,7 +67,7 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         id: 'ID'
                     },
                     resolve: async (parent, args, context : GraphContext) => {
-                        return await context.connector.read(item.name, args['id'])
+                        return await context.connector.read(item.name, {id: args['id']})
                     }
                 },
                 [queryAllKey]: {
