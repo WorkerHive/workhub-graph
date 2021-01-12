@@ -22,7 +22,12 @@ export default class TypeRegistry extends EventEmitter<any>{
         this.composer.addTypeDefs(typeSDL)
         
         this.setupDirectives();
+        this.setupScalars();
         //Directive types;
+    }
+
+    setupScalars(){
+        this.composer.createScalarTC(HashScalar)
     }
 
     setupDirectives(){
@@ -236,6 +241,7 @@ export default class TypeRegistry extends EventEmitter<any>{
 
 import { camelCase } from 'camel-case'; //For future reference this is what being a hippocrit (fuck spelling) is all about
 import { merge } from 'lodash';
+import { HashScalar } from '../scalars/hash';
 
 export class Type {
 
