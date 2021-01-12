@@ -36,6 +36,8 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
 
  export const isNativeType = (type) => {
         switch(type){
+            case "Hash":
+                return "Hash";
             case "JSON":
                 return "JSON"
             case "Date":
