@@ -17,12 +17,12 @@ export default class TypeRegistry extends EventEmitter<any>{
         super();
         this._sdl = typeSDL;
         this._resolvers = resolvers;
+        this.setupScalars();
 
         this.setupMutable();
         this.composer.addTypeDefs(typeSDL)
         
         this.setupDirectives();
-        this.setupScalars();
         //Directive types;
     }
 
