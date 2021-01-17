@@ -46,6 +46,12 @@ export default class TypeRegistry extends EventEmitter<any>{
 
 
         this.composer.Query.addFields({
+            crudTypes: {
+                type: '[MutableType]',
+                resolve: () => {
+                    return getTypesWithDirective(this.composer, "crud")
+                }
+            },
             mutableTypes: {
                 type: '[MutableType]',
                 resolve: (parent, args, context) => {
