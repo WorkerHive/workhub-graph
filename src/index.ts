@@ -9,6 +9,7 @@ import GraphContext from "./interfaces/GraphContext";
 import { getTypesWithDirective } from "./utils";
 import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
+import { merge } from "lodash";
 
 export {
     GraphContext,
@@ -77,13 +78,13 @@ export default class HiveGraph extends BaseGraph{
         this.emit('schema_update', this.typeRegistry.sdl)
     }
 
-    async executeRequest(query, variables, operationName){
+    async executeRequest(query, variables, operationName, extraContext){
         let result =  await execute({
             schema: this.schema,
             operationName: operationName,
             document: parse(new Source(query)),
             rootValue: this.typeRegistry.resolvers, 
-            contextValue: this.context,
+            contextValue: merge(this.context, extraContext || {}),
             variableValues: variables,
         })
 
@@ -107,6 +108,10 @@ export default class HiveGraph extends BaseGraph{
 
     addTransport(setupFn : Function){
         this.transports.push(setupFn(this.typeRegistry.sdl))
+    }
+
+    authenticate(user){
+
     }
     
 
