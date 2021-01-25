@@ -125,16 +125,19 @@ export default class TypeRegistry extends EventEmitter<any>{
         })
     }
 
-    addFields(typeName: string, fields: any){
+    addFields(typeName: string, fields: Array<{name: string, type: string}>){
         let inputFields = {};
-        for(var k in fields){
-            inputFields[k] = convertInput(fields[k])
-        }
+        let objfields = {};
+        fields.filter((a) => a.type && a.type.length > 0).forEach((field) => {
+            inputFields[field.name] = convertInput(field.type)
+            objfields[field.name] = field.type
+        })
+        console.log("Add fields", inputFields, objfields)
         this.composer.getITC(`${typeName}Input`).addFields({
           ...inputFields
         })
         this.composer.getOTC(typeName).addFields({
-            ...fields
+            ...objfields
         })
         this.emit('add_fields', {typeName, fields})
     }

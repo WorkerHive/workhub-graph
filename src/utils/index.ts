@@ -57,7 +57,7 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
         }
     }   
     
-    export const convertInput = (type) => {
+    export const convertInput = (type: string) => {
         let outputFields = {};
 
             let newType;
