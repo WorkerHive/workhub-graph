@@ -2,7 +2,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { buildSchema, BuildSchemaOptions, DirectiveLocation, GraphQLBoolean, GraphQLDirective, GraphQLInputObjectType, GraphQLInputType, GraphQLSchema } from 'graphql';
 import { SchemaComposer, ObjectTypeComposer, schemaComposer, InputTypeComposer } from 'graphql-compose';
 import EventEmitter from '../interfaces/Emitter';
-import { getTypesWithDirective, objectValues } from '../utils';
+import { convertInput, getTypesWithDirective, objectValues } from '../utils';
 
 import { directives, directiveTransforms } from '../directives';
 
@@ -126,8 +126,12 @@ export default class TypeRegistry extends EventEmitter<any>{
     }
 
     addFields(typeName: string, fields: any){
+        let inputFields = {};
+        fields.forEach((field) => {
+            inputFields[field.name] = convertInput(field.type)
+        })
         this.composer.getITC(`${typeName}Input`).addFields({
-          ...fields
+          ...inputFields
         })
         this.composer.getOTC(typeName).addFields({
             ...fields
