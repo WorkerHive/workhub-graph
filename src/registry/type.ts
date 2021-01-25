@@ -126,6 +126,9 @@ export default class TypeRegistry extends EventEmitter<any>{
     }
 
     addFields(typeName: string, fields: any){
+        this.composer.getITC(typeName).addFields({
+          ...fields
+        })
         this.composer.getOTC(typeName).addFields({
             ...fields
         })
@@ -134,7 +137,8 @@ export default class TypeRegistry extends EventEmitter<any>{
 
     removeFields(typeName: string, fields: Array<string>){
         fields.forEach(field => {
-            this.composer.getOTC(typeName).removeField(fields)
+          this.composer.getITC(typeName).removeField(fields)
+          this.composer.getOTC(typeName).removeField(fields)
         })
         this.emit('remove_fields', {typeName, fields})
     }
@@ -166,6 +170,12 @@ export default class TypeRegistry extends EventEmitter<any>{
                 ${fields.map((x) => `${x.name}: ${x.value}`).join(`\n`)}
             }
         `
+        let inputDef = `
+          input ${name}Input{
+            ${fields.map((x) => `${x.name}: ${x.value}`).join(`\n`)}
+          }
+        `
+        let input = this.composer.createInputTC(typeDef)
         let obj = this.composer.createObjectTC(typeDef)
         this.emit('add', {typeDef})
         return new Type(obj)
