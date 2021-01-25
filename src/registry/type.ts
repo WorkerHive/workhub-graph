@@ -40,6 +40,7 @@ export default class TypeRegistry extends EventEmitter<any>{
         this.composer.addTypeDefs(`
             type MutableType{
                 name: String
+                directives: [String]
                 def: JSON
             } 
         `)
@@ -271,10 +272,12 @@ export class Type {
     private object : ObjectTypeComposer | InputTypeComposer;
 
     public name: string;
+    public directives: Array<any>;
 
     constructor(object: ObjectTypeComposer | InputTypeComposer){
         this.object = object;
         this.name = this.object.getTypeName();
+        this.directives = this.object.getDirectives().map((x) => x.name)
     }
 
     get camelName(){
