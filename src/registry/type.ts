@@ -126,7 +126,7 @@ export default class TypeRegistry extends EventEmitter<any>{
     }
 
     addFields(typeName: string, fields: any){
-        this.composer.getITC(typeName).addFields({
+        this.composer.getITC(`${typeName}Input`).addFields({
           ...fields
         })
         this.composer.getOTC(typeName).addFields({
