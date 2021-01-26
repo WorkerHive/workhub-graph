@@ -4,7 +4,6 @@ import { SchemaComposer, ObjectTypeComposer, schemaComposer, InputTypeComposer }
 import EventEmitter from '../interfaces/Emitter';
 import { convertInput, getTypesWithDirective, objectValues } from '../utils';
 
-import { directives, directiveTransforms } from '../directives';
 
 export default class TypeRegistry extends EventEmitter<any>{
     
@@ -22,7 +21,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         this.setupMutable();
         this.composer.addTypeDefs(typeSDL)
         
-        this.setupDirectives();
         //Directive types;
     }
 
@@ -30,11 +28,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         this.composer.createScalarTC(HashScalar)
     }
 
-    setupDirectives(){
-        directives.forEach(directive => {
-            this.composer.addDirective(directive)
-        })
-    }
 
     setupMutable(){
         this.composer.addTypeDefs(`
@@ -242,9 +235,6 @@ export default class TypeRegistry extends EventEmitter<any>{
 
     get schema() : GraphQLSchema{
         let outputSchema = this.composer.clone();
-        directiveTransforms.forEach(transformAction => {
-            outputSchema.merge(transformAction(this.composer, this))
-        })
 
         if(this._resolvers) outputSchema.addResolveMethods(this._resolvers)
 

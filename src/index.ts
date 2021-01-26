@@ -10,6 +10,7 @@ import { getTypesWithDirective } from "./utils";
 import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
 import { merge } from "lodash";
+import { directives, directiveTransforms } from './directives';
 
 export {
     GraphContext,
@@ -62,14 +63,23 @@ export default class HiveGraph extends BaseGraph{
     }
 
     getSchema(){
+        let outputSchema = schemaComposer.clone();
+
         let typeSchema = this.typeRegistry.schema
         let roleSchema = this.roleRegistry.schema
 
-        let refreshSchema = schemaComposer.clone()
-        refreshSchema.merge(typeSchema);
-        refreshSchema.merge(roleSchema)
+        directives.forEach(directive => {
+            outputSchema.addDirective(directive)
+        })
 
-        return this.typeRegistry.composer.merge(this.roleRegistry.composer).buildSchema()
+        directiveTransforms.forEach(transformAction => {
+            outputSchema.merge(transformAction(outputSchema, this.typeRegistry))
+        })
+
+        outputSchema.merge(typeSchema);
+        outputSchema.merge(roleSchema)
+
+        return outputSchema.buildSchema()
     }
 
     schemaUpdate(args){

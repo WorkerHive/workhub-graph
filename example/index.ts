@@ -47,7 +47,7 @@ hiveGraph.addTransport((conf) => {
         let operationName = req.body.operationName || null;
         if(variables && typeof(variables) !== 'object') variables = JSON.parse(variables)
 
-        hiveGraph.executeRequest(query, variables, operationName).then((r) => res.send(r))
+        hiveGraph.executeRequest(query, variables, operationName, {}).then((r) => res.send(r))
     })
 
     app.get('/graphql', (req, res) => {

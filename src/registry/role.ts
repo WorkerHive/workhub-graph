@@ -21,7 +21,11 @@ export default class RoleRegistry {
     }
 
     get schema(){
-        return makeExecutableSchema({typeDefs:this.sdl, resolvers: this.resolvers});
+        let outputSchema = this.composer.clone();
+       // outputSchema.addResolveMethods(this.resolvers)
+
+        return outputSchema.buildSchema();
+       // return makeExecutableSchema({typeDefs:this.sdl, resolvers: this.resolvers});
     }
 
     get resolvers(){
