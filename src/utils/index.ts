@@ -49,7 +49,9 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
             case "Int":
                 return "Int" 
             case "Float":
-                return "Float"; 
+                return "Float";
+            case "Upload":
+                return "Upload";
             case "Boolean":
                 return "Boolean"; 
             default:
