@@ -82,7 +82,7 @@ export default class HiveGraph extends BaseGraph{
         this.emit('schema_update', this.typeRegistry.sdl)
     }
 
-    async executeRequest(query, variables, operationName, extraContext){
+    async executeRequest(query, variables, operationName, extraContext?){
         let result =  await execute({
             schema: this.schema,
             operationName: operationName,

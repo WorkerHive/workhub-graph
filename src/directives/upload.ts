@@ -1,5 +1,6 @@
 import { DirectiveLocation, GraphQLBoolean, GraphQLDirective } from "graphql";
 import { camelCase, schemaComposer, SchemaComposer } from "graphql-compose";
+import { GraphQLUpload } from 'graphql-upload';
 import { GraphContext } from "..";
 import { getTypesWithDirective } from "../utils";
 
@@ -13,6 +14,9 @@ export const directive = new GraphQLDirective({
 
 export const transform = (composer: SchemaComposer<any>) => {
     schemaComposer.merge(composer);
+    
+    schemaComposer.add(GraphQLUpload)
+    console.log('=> Added Upload Scalar')
     
     let types = getTypesWithDirective(composer, directiveName)
 

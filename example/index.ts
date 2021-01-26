@@ -36,7 +36,12 @@ let hiveGraph = new Graph(`
     ${typeDefs}
 
     ${types}
-`, resolvers, connector, true)
+    type File @upload @configurable {
+        name: String
+        cid: String
+    }
+
+    `, resolvers, connector, true)
 
 
 
