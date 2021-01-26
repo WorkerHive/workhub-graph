@@ -10,8 +10,14 @@ export default class RoleRegistry {
         this.setupMutable();
     }
 
-    get sdl(){
-        return this.composer.toSDL();
+    get sdl() {
+        let sdl = ``;
+        this.composer.types.forEach((type, key) => {
+            if(typeof(key) == 'string'){
+                sdl += `\n` + type.toSDL();
+            }
+        })   
+        return sdl; 
     }
 
     get schema(){
@@ -70,20 +76,30 @@ export default class RoleRegistry {
             updateRole: {
                 type: "Role",
                 args: {
+                    id: "String",
                     name: "String",
                     permissions:"JSON"
                 },
                 resolve: (parent, args, context) => {
-
+                  let ix = this.roles.map((x: any) => x.id).indexOf(args.id)
+                  this.roles[ix] = {
+                    ...this.roles[ix],
+                    permissions: args.permissions
+                  }
+                  return this.roles[ix];
                 }
             },
-            removeRole: {
+            deleteRole: {
                 type: "Boolean",
                 args: {
-                    name: "String"
+                    id: "String"
                 },
                 resolve: (parent, args, context) => {
-                    
+                  let ix = this.roles.map((x: any) => x.id).indexOf(args.id)
+                  if(ix > -1){
+                    this.roles.splice(ix, 1);
+                  }
+                  return true;
                 }
             }
         })

@@ -54,7 +54,6 @@ export default class HiveGraph extends BaseGraph{
         this.typeRegistry.on('add_fields', this.schemaUpdate)
         this.typeRegistry.on('remove_fields', this.schemaUpdate)
 
-        this.roleRegistry = new RoleRegistry()
         console.log(this.schema)
         this.connector.setParent(this);
         
