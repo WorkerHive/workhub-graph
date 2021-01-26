@@ -11,6 +11,7 @@ import LoggerConnector from "./connectors/logger";
 import BaseConnector from "./interfaces/GraphConnector";
 import { merge } from "lodash";
 import { directives, directiveTransforms } from './directives';
+import { initialTypes } from "./initialTypes";
 
 export {
     GraphContext,
@@ -33,18 +34,15 @@ export default class HiveGraph extends BaseGraph{
     private transports : Array<GraphTransport> = [];
 
     public typeRegistry: TypeRegistry;
-    private roleRegistry: RoleRegistry;
 
-    constructor(initialTypes: string = ``, resolvers: any, connector: GraphConnector, hotReload: boolean = false){
+    constructor(initial: string = ``, resolvers: any, connector: GraphConnector, hotReload: boolean = false){
         super();
-        this.initialTypes = initialTypes
+        this.initialTypes = initialTypes(initial)
         this.hotReload = hotReload
 
         this.connector = connector;
 
-
-        this.typeRegistry = new TypeRegistry(initialTypes, resolvers);
-        this.roleRegistry = new RoleRegistry()
+        this.typeRegistry = new TypeRegistry(this.initialTypes, resolvers);
 
         this.schema = this.getSchema()
 
@@ -55,7 +53,6 @@ export default class HiveGraph extends BaseGraph{
         this.typeRegistry.on('add_fields', this.schemaUpdate)
         this.typeRegistry.on('remove_fields', this.schemaUpdate)
 
-        console.log(this.schema)
         this.connector.setParent(this);
         
         this.context = {connector: this.connector}
@@ -66,7 +63,6 @@ export default class HiveGraph extends BaseGraph{
         let outputSchema = schemaComposer.clone();
 
         let typeSchema = this.typeRegistry.schema
-        let roleSchema = this.roleRegistry.schema
 
         directives.forEach(directive => {
             outputSchema.addDirective(directive)
@@ -77,7 +73,6 @@ export default class HiveGraph extends BaseGraph{
         })
 
         outputSchema.merge(typeSchema);
-        outputSchema.merge(roleSchema)
 
         return outputSchema.buildSchema()
     }

@@ -13,17 +13,23 @@ let logger = new LoggerConnector();
 let connector = new FlowConnector({}, {})
 
 let { types, resolvers } = connector.getConfig();
+
+resolvers.Query.swarmKey = () => {
+    return "swarmKey"
+}
+
 let hiveGraph = new Graph(`
 
-    type Query {
+    extend type Query {
+        empty: String
+        swarmKey: String
+    }
+
+    extend type Mutation{
         empty: String
     }
 
-    type Mutation{
-        empty: String
-    }
-
-    type Subscription {
+    extend type Subscription {
         empty: String
     }
 

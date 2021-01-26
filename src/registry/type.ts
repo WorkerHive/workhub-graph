@@ -126,7 +126,6 @@ export default class TypeRegistry extends EventEmitter<any>{
             inputFields[field.name] = convertInput(field.type)
             objfields[field.name] = field.type
         })
-        console.log("Add fields", inputFields, objfields)
         this.composer.getITC(`${typeName}Input`).addFields({
           ...inputFields
         })
@@ -228,7 +227,6 @@ export default class TypeRegistry extends EventEmitter<any>{
 //        this.composer.addResolveMethods(this._resolvers);
 
         let resolvers = this.composer.getResolveMethods();
-        console.log("Dispatching resolvers", resolvers);
         return merge(this._resolvers, resolvers);
         //return r;
     }
@@ -236,6 +234,10 @@ export default class TypeRegistry extends EventEmitter<any>{
     get schema() : GraphQLSchema{
         let outputSchema = this.composer.clone();
 
+        if(this._sdl){
+            console.log(this._sdl)
+            outputSchema.addTypeDefs(this._sdl)
+        } 
         if(this._resolvers) outputSchema.addResolveMethods(this._resolvers)
 
         return outputSchema.buildSchema()
