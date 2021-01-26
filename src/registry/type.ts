@@ -40,6 +40,12 @@ export default class TypeRegistry extends EventEmitter<any>{
 
 
         this.composer.Query.addFields({
+            uploadTypes: {
+                type: '[MutableType]',
+                resolve: () => {
+                    return getTypesWithDirective(this.composer, "upload")
+                }
+            },
             crudTypes: {
                 type: '[MutableType]',
                 resolve: () => {
