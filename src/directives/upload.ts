@@ -17,14 +17,14 @@ export const transform = (composer: SchemaComposer<any>) => {
     
     schemaComposer.add(GraphQLUpload)
     console.log('=> Added Upload Scalar')
-    
+
     let types = getTypesWithDirective(composer, directiveName)
 
     types.forEach((type) => {
 
-        const queryKey = `${camelCase(type.name)}s`
-        const addKey = `add${camelCase(type.name)}`
-        const deleteKey = `delete${camelCase(type.name)}`
+        const queryKey = `${type.camelName}s`
+        const addKey = `add${type.name}`
+        const deleteKey = `delete${type.name}`
 
 
         schemaComposer.Query.addFields({
