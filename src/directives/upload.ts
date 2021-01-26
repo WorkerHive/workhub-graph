@@ -29,7 +29,7 @@ export const transform = (composer: SchemaComposer<any>) => {
 
         schemaComposer.Query.addFields({
             [queryKey]: {
-                type: type.name,
+                type: `[${type.name}]`,
                 resolve: async (parent, args, context : GraphContext) => {
                     return await context.connector.readAll(type.name)
                 }   
