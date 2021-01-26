@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 export default class RoleRegistry {
     private roles : Array<Role> = [];
 
-    private composer: SchemaComposer<any> = schemaComposer.clone();
+    public composer: SchemaComposer<any> = schemaComposer.clone();
     
     constructor(){
         this.setupMutable();

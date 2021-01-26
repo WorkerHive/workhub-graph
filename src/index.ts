@@ -69,7 +69,7 @@ export default class HiveGraph extends BaseGraph{
         refreshSchema.merge(typeSchema);
         refreshSchema.merge(roleSchema)
 
-        return refreshSchema.buildSchema()
+        return this.typeRegistry.composer.merge(this.roleRegistry.composer).buildSchema()
     }
 
     schemaUpdate(args){
