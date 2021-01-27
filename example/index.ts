@@ -67,4 +67,4 @@ hiveGraph.addTransport((conf) => {
     
 })
 
-app.listen(4002)
+app.listen(4000)

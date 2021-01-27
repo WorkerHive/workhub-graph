@@ -11,6 +11,11 @@ export const directive = new GraphQLDirective({
     description: "Field is a component of it's sibling input type",
     locations: [DirectiveLocation.FIELD_DEFINITION],
     args: {
+        ref: {
+            type: GraphQLBoolean,
+            description: "input is a reference to type",
+            defaultValue: false
+        },
         required: {
             type: GraphQLBoolean,
             description: "required for input type of same name",
@@ -38,9 +43,22 @@ export function transform(composer: SchemaComposer<any>, typeRegistry: TypeRegis
         }
         
         inputFields = inputFields.filter(field => otc.getFieldExtensions(field.name).directives?.map((x) => x.name).indexOf(directiveName) > -1);
+        
         let inputFieldObj = {};
         inputFields.forEach(f => {
-            inputFieldObj[f.name] = convertInput(f.type);
+            const directives = f.directives.map((x: any) => {
+                const args = {};
+                (x.arguments || []).forEach((y: any) => {
+                    args[y.name.value] = y.value.value;
+                })
+                return {
+                    name: x.name.value,
+                    args: args
+                }
+            })
+            const inputDirective = directives.filter((a: any) => a.name == 'input')[0]
+            inputFieldObj[f.name] = convertInput(f.type, inputDirective.args);
+            console.log(f.name, inputFieldObj[f.name])
         })
 
         return composer.createInputTC({

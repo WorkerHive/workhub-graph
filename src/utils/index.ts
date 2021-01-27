@@ -59,7 +59,7 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
         }
     }   
     
-    export const convertInput = (type: string) => {
+    export const convertInput = (type: string, args: {ref: boolean} = {ref: false}) => {
         let outputFields = {};
 
             let newType;
@@ -67,7 +67,11 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
                 if(isNativeType(type) != null){
                     newType = type
                 }else{
-                    newType = `${type}Input`
+                    if(args.ref){
+                        newType = 'JSON'
+                    }else{
+                        newType = `${type}Input`
+                    }
                 }
                 
             }else{
@@ -76,7 +80,11 @@ export function getTypesWithFieldDirective(composer: SchemaComposer<any>, name: 
                 if(isNativeType(arrType) != null){
                     newType = `[${arrType}]`;
                 }else{
-                    newType = `[${arrType}Input]`
+                    if(args.ref){
+                        newType = 'JSON'
+                    }else{
+                        newType = `[${arrType}Input]`
+                    }
                 }
                 
 
