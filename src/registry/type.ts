@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { buildSchema, BuildSchemaOptions, DirectiveLocation, GraphQLBoolean, GraphQLDirective, GraphQLInputObjectType, GraphQLInputType, GraphQLSchema } from 'graphql';
+import { buildSchema, BuildSchemaOptions, DirectiveLocation, GraphQLBoolean, GraphQLDirective, GraphQLField, GraphQLInputObjectType, GraphQLInputType, GraphQLSchema } from 'graphql';
 import { SchemaComposer, ObjectTypeComposer, schemaComposer, InputTypeComposer } from 'graphql-compose';
 import EventEmitter from '../interfaces/Emitter';
 import { convertInput, getTypesWithDirective, objectValues } from '../utils';
@@ -264,6 +264,7 @@ export default class TypeRegistry extends EventEmitter<any>{
 import { camelCase } from 'camel-case'; //For future reference this is what being a hippocrit (fuck spelling) is all about
 import { merge } from 'lodash';
 import { HashScalar } from '../scalars/hash';
+import { directives } from '../directives';
 
 export class Type {
 
@@ -294,10 +295,17 @@ export class Type {
         }else if(this.object instanceof ObjectTypeComposer){
             fields = this.object.getType().getFields(); 
         }
-        return objectValues(fields).map((x) => ({
-            name: x.name, 
-            type: x.type
-        }));
+        return objectValues(fields).map((x: GraphQLField<any, any>) => {
+            const directives = x.extensions.directives.map((x: any) => ({
+                name: x.name,
+                args: x.args
+            }));
+            return {
+                name: x.name, 
+                type: x.type,
+                directives: directives 
+            }
+        });
         /*
         this.object.getFields()
         return objectValues(this.object.getType().getFields() || this.object.getFields()).map((x) => ({

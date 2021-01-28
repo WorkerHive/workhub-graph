@@ -14,7 +14,7 @@ export interface GraphConnector{
 
     create(type : string, newObject: any) : Promise<object>;
     read(type : string, query: object) : Promise<object>;
-    readAll(type: string): Promise<Array<object>>;
+    readAll(type: string, query?: object): Promise<Array<object>>;
     update(type: string, query: object, update: object) : Promise<object>; 
     delete(type: string, query: object) : Promise<boolean>;
 }
@@ -59,7 +59,7 @@ export default class BaseConnector implements GraphConnector{
     read(type: string, query: object): Promise<object> {
         throw new Error("Method not implemented.");
     }
-    readAll(type: string): Promise<object[]> {
+    readAll(type: string, query: object = {}): Promise<object[]> {
         throw new Error("Method not implemented.");
     }
     update(type: string, query: object, update: object): Promise<object> {

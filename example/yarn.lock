@@ -315,24 +315,10 @@
   dependencies:
     "@types/node" "*"
 
-"@workerhive/flow-provider@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.8.tgz#eec3b1616b5a690ff35944d6a01c36018d528a6c"
-  integrity sha512-VpAT0czETVWIp+Asp00XdEjOzbuZaCY80LwwS1fHpHoayE09rpgUN5/gFNiE6T5ZjxKwsBAfuySHNCz7+f7lsA==
-  dependencies:
-    "@graphql-tools/merge" "^6.2.6"
-    "@graphql-tools/schema" "^7.1.2"
-    "@types/mongodb" "^3.6.3"
-    camel-case "^4.1.2"
-    file-extension "^4.0.5"
-    graphql-compose "^7.23.0"
-    graphql-type-json "^0.3.2"
-    lodash "^4.17.20"
-
-"@workerhive/flow-provider@^1.2.3":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.4.tgz#752db5dc0b30771fc7ada34624d4f03a00e1d419"
-  integrity sha512-NkUuPiwYUtQma6XJEWpYw8Q+x5XN3AZ+Beh+kpn7dVOJ+HEkgUGVTjP/wwJ90md5q3LASAeu2OORZ4gWY8DZRA==
+"@workerhive/flow-provider@^1.2.21", "@workerhive/flow-provider@^1.2.9":
+  version "1.2.21"
+  resolved "https://registry.yarnpkg.com/@workerhive/flow-provider/-/flow-provider-1.2.21.tgz#645be194f445805c8fffb5d7a53b704ade4440f3"
+  integrity sha512-kZg9o9Je89DtCqYSunR6RXKB8AWqHaDOp+yxQ4YSmETRlS+QUFUuCnL3aLJ2SY6hezlEgfLwUxpkB9IOx8xqpw==
   dependencies:
     "@graphql-tools/merge" "^6.2.6"
     "@graphql-tools/schema" "^7.1.2"
@@ -344,10 +330,10 @@
     lodash "^4.17.20"
 
 "@workerhive/graph@file:..":
-  version "1.0.12"
+  version "1.0.37"
   dependencies:
     "@graphql-tools/schema" "^7.1.2"
-    "@workerhive/flow-provider" "^1.2.3"
+    "@workerhive/flow-provider" "^1.2.9"
     "@workerhive/mq" "^1.0.0"
     "@workerhive/pipelines" "^1.0.0"
     amqplib "^0.6.0"
@@ -356,6 +342,7 @@
     file-extension "^4.0.5"
     fs-capacitor "^6.2.0"
     graphql "^15.4.0"
+    graphql-upload "^11.0.0"
     jsonwebtoken "^8.5.1"
     jwt-decode "^3.1.2"
     lodash "^4.17.20"
@@ -1135,7 +1122,7 @@ fs-capacitor@^2.0.4:
   resolved "https://registry.yarnpkg.com/fs-capacitor/-/fs-capacitor-2.0.4.tgz#5a22e72d40ae5078b4fe64fe4d08c0d3fc88ad3c"
   integrity sha512-8S4f4WsCryNw2mJJchi46YgB6CR5Ze+4L1h8ewl9tEpL4SJ3ZO+c/bS4BWhB8bK+O3TMqhuZarTitd0S0eh2pA==
 
-fs-capacitor@^6.2.0:
+fs-capacitor@^6.1.0, fs-capacitor@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/fs-capacitor/-/fs-capacitor-6.2.0.tgz#fa79ac6576629163cb84561995602d8999afb7f5"
   integrity sha512-nKcE1UduoSKX27NSZlg879LdQc94OtbOsEmKMN2MBNudXREvijRKx2GEBsTMTfws+BrbkJoEuynbGSVRSpauvw==
@@ -1241,6 +1228,17 @@ graphql-type-json@0.3.2, graphql-type-json@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
   integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
+
+graphql-upload@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-upload/-/graphql-upload-11.0.0.tgz#24b245ff18f353bab6715e8a055db9fd73035e10"
+  integrity sha512-zsrDtu5gCbQFDWsNa5bMB4nf1LpKX9KDgh+f8oL1288ijV4RxeckhVozAjqjXAfRpxOHD1xOESsh6zq8SjdgjA==
+  dependencies:
+    busboy "^0.3.1"
+    fs-capacitor "^6.1.0"
+    http-errors "^1.7.3"
+    isobject "^4.0.0"
+    object-path "^0.11.4"
 
 graphql-upload@^8.0.2:
   version "8.1.0"
@@ -1409,6 +1407,11 @@ isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+
+isobject@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/isobject/-/isobject-4.0.0.tgz#3f1c9155e73b192022a80819bacd0343711697b0"
+  integrity sha512-S/2fF5wH8SJA/kmwr6HYhK/RI/OkhD84k8ntalo0iJjZikgq1XFvR5M8NPT1x5F7fBwCG3qHfnzeP/Vh/ZxCUA==
 
 isomorphic.js@^0.1.3:
   version "0.1.5"

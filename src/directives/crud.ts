@@ -1,7 +1,7 @@
 import { DirectiveLocation, GraphQLBoolean, GraphQLDirective, GraphQLSchema } from "graphql";
 import { schemaComposer, SchemaComposer } from "graphql-compose";
 import GraphContext from "../interfaces/GraphContext";
-import { getTypesWithDirective } from "../utils";
+import { convertInput, getTypesWithDirective } from "../utils";
 
 export const directiveName = "crud"
 
@@ -76,7 +76,36 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         
                     },
                     resolve: async (parent, args, context : GraphContext) => {
-                        return await context.connector.readAll(item.name)
+                        const refs = item.def.filter((a) => a.directives.filter((x) => x.name == 'input' && x.args.ref).length > 0)
+                        console.log("Foreign fields", refs)
+                        let result = await context.connector.readAll(item.name)
+
+                        return await Promise.all(result.map(async (x: any) => {
+                            if(refs.length > 0){
+                                //We have foreign references to check for
+                                await Promise.all(refs.map(async (ref: any) => {
+                                    let arr = ref.type.toString().match(/\[(.*?)\]/) != null; 
+                                    let name = arr ? ref.type.toString().match(/\[(.*?)\]/)[1] : ref.type.toString();
+                                    if(x[ref.name]){
+                                        console.log("Object has foreign references")
+                                        let keys = Object.keys(x[ref.name])
+                                        let q = {}
+                                        console.log(keys, x, ref)
+                                        keys.forEach(k => {
+                                            q[k] = {$in: x[ref.name][k]}
+                                        })
+                                    
+                                        let part = await context.connector.readAll(name, q)
+                                        console.log("REFFFFF", part, q)
+                                        x[ref.name] = part;
+                                    }else{
+                                        x[ref.name] = arr ? [] : {}
+                                    }
+                                }))
+                        
+                            }
+                            return x;
+                        }))
                     }
                 }
             })
